@@ -1,0 +1,14 @@
+Package: NeuroUp
+Type: Package
+Title: Plan Sample Size based on Desired Precision of Estimated Mean
+        Difference or Cohen's D.
+Version: 0.1.0
+Author: Eduard Klapwijk, Herbert Hoijtink, and Joran Jongerling
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: The package calculates the precision in mean differences (raw or Cohen's D) and regression coefficients for different sample sizes using permutations of the collected data.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.2
+NeedsCompilation: no
+Packaged: 2022-07-01 06:46:26 UTC; jongerli
