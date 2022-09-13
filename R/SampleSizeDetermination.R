@@ -5,12 +5,13 @@
 #' @param vars_of_interest Vector containing the names of the variables to be compared on their means
 #' @param k The number of permutations to be used for each sample size
 #' @param row_select The range of sample size to be used
+#' @param name The title of the dataset or variables to be displayed with the figure
 #' @return And array containing the difference in raw means with associated SD, SE, 95\% CI, and width of
 #' the 95\% CI, the Cohen's D value of the difference with associated SD, SE, 95\% CI, and width of
 #' the 95\% CI, ans the sample size on which each row of results is based.
 
 
-SampleSizeDetermination <- function(data, vars_of_interest, k, row_select){ #nmin
+SampleSizeDetermination <- function(data, vars_of_interest, k, row_select, name){ #nmin
 
   # vars_of_interest <- c("MFG_LEARNING", "MFG_APPLICATION")
   #row_select <- c(nmin:nrow(data))
@@ -143,7 +144,7 @@ SampleSizeDetermination <- function(data, vars_of_interest, k, row_select){ #nmi
       scale_linetype_manual(values = c(1,1,1,1,1,1,1,1,1,1,6))+
       geom_errorbar(aes(ymin=LB, ymax=UB), width=.1,position=pd)+
       scale_color_manual(values=c("#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9","#CC79A7"))+
-      labs(title = "Feedback middle frontal gyrus") +
+      labs(title = name) +
       geom_hline(yintercept=0, linetype="dashed")
 
 
