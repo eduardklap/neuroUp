@@ -33,16 +33,7 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
     # output_total
   }
   colnames(output_total) <- c("N", "correlation", "cred_low", "cred_high", "permutation")
-  # divide the total dataset by 5 to select sample sizes
-  filt_sel <- round((sample_size[length(sample_size)] - sample_size[1])/5)
-  # select the 5 different sample sizes for visualization
-  output_selection <- output_total %>%
-    filter(  N == N[1] |
-               N ==  (N[1] + filt_sel) |
-               N ==  (N[1] + 2*filt_sel) | 
-               N == (N[1] + 3*filt_sel) | 
-               N == N[length(N)]  )    
-  # calculate overall intervals per selected sample size
+  # calculate overall intervals per sample size
   overall_output <- output_total %>%
     group_by(N) %>%
     summarise(
@@ -51,7 +42,16 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
       cred_high = mean(cred_high, na.rm = TRUE),
       permutation = 999) %>%
     ungroup()
+  # divide the total dataset by 5 to select sample sizes
+  filt_sel <- round((sample_size[length(sample_size)] - sample_size[1])/5)
   # select the 5 different sample sizes for visualization
+  output_selection <- output_total %>%
+    filter(  N == N[1] |
+               N ==  (N[1] + filt_sel) |
+               N ==  (N[1] + 2*filt_sel) | 
+               N == (N[1] + 3*filt_sel) | 
+               N == N[length(N)]  ) 
+  # select the 5 different sample sizes of the overall interval for visualization
   overall_selection <- overall_output %>%
     filter(  N == N[1] |
                N ==  (N[1] + filt_sel) |
