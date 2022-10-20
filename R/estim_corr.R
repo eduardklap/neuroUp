@@ -44,7 +44,7 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
     ungroup()
   # divide the total dataset by 5 to select sample sizes
   filt_sel <- round((sample_size[length(sample_size)] - sample_size[1])/5)
-  # select the 5 different sample sizes for visualization
+  # select the 5 different sample sizes for every permutation for visualization
   output_selection <- output_total %>%
     filter(  N == N[1] |
                N ==  (N[1] + filt_sel) |
