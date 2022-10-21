@@ -42,32 +42,30 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
       cred_high = mean(cred_high, na.rm = TRUE),
       permutation = 999) %>%
     ungroup()
-  # divide the total dataset by 5 to select sample sizes
-  filt_sel <- round((sample_size[length(sample_size)] - sample_size[1])/5)
+  # function to divide the total dataset by 5 and to filter the sample sizes
+  filt_sample <- function(sample_size, output_total) {
+    filt_sel <- round((sample_size[length(sample_size)] - sample_size[1])/5)
+    filter(output_total,  N == N[1] |
+             N ==  (N[1] + filt_sel) |
+             N ==  (N[1] + 2 * filt_sel) |
+             N == (N[1] + 3 * filt_sel) |
+             N == N[length(N)]  )
+  }
   # select the 5 different sample sizes for every permutation for visualization
-  output_selection <- output_total %>%
-    filter(  N == N[1] |
-               N ==  (N[1] + filt_sel) |
-               N ==  (N[1] + 2*filt_sel) | 
-               N == (N[1] + 3*filt_sel) | 
-               N == N[length(N)]  ) 
+  output_selection <- filt_sample(sample_size, output_total)
   # select the 5 different sample sizes of the overall interval for visualization
-  overall_selection <- overall_output %>%
-    filter(  N == N[1] |
-               N ==  (N[1] + filt_sel) |
-               N ==  (N[1] + 2*filt_sel) | 
-               N == (N[1] + 3*filt_sel) | 
-               N == N[length(N)]  )
-  
+  overall_selection <- filt_sample(sample_size, overall_output)
   # combine 10 datasets per sample size with overall per sample size
   total_selection <- rbind(output_selection, overall_selection)
   
+  # turn permutations and N into factors for visualisation
   lvl_plot <- levels(factor(total_selection$permutation))
   lvl_plot[lvl_plot == "999"] <- "Overall"
   total_selection$permutation <- factor(total_selection$permutation, labels=lvl_plot)
   total_selection$N <- as.factor(total_selection$N)
   #return(total_selection)
   
+  # plot figure for the correlations
   figure_corr <- ggplot(data=total_selection, aes(x = N, y = correlation, 
                                                   colour = permutation, linetype = permutation) ) +
     theme_classic(base_size = 14) +
