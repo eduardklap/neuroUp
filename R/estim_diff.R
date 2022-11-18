@@ -12,8 +12,8 @@
 
 estim_diff <- function(data, vars_of_interest, k, sample_size, name){
   # create a tibble to store the output in
-  output <- tibble()
-  output_total <- tibble()
+  output <- tibble::tibble()
+  output_total <- tibble::tibble()
   # loop X number of times over the different sample sizes 
   for (j in 1:k) {
     for (i in sample_size){
@@ -39,8 +39,8 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
                               "sterror", "lower", "upper", "permutation")
   # calculate overall intervals per sample size
   overall_output <- output_total %>%
-    group_by(N) %>%
-    summarise(
+    dplyr::group_by(N) %>%
+    dplyr::summarise(
       estimate = mean(estimate, na.rm = TRUE),
       variance = mean(variance, na.rm = TRUE),
       stdev = mean(stdev, na.rm = TRUE),
@@ -48,11 +48,11 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
       lower = mean(lower, na.rm = TRUE),
       upper = mean(upper, na.rm = TRUE),
       permutation = 999) %>%
-    ungroup()
+    dplyr::ungroup()
   # function to divide the total dataset by 5 and to filter the sample sizes
   filt_sample <- function(sample_size, output_total) {
     filt_sel <- round((sample_size[length(sample_size)] - sample_size[1])/5)
-    filter(output_total,  N == N[1] |
+    dplyr::filter(output_total,  N == N[1] |
              N ==  (N[1] + filt_sel) |
              N ==  (N[1] + 2 * filt_sel) |
              N == (N[1] + 3 * filt_sel) |
@@ -73,7 +73,7 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
   #return(total_selection)
   
   # plot figure for the correlations
-  figure_corr <- ggplot(data=total_selection, aes(x = N, y = estimate, 
+  figure_corr <- ggplot2::ggplot(data=total_selection, aes(x = N, y = estimate, 
                                                   colour = permutation, linetype = permutation) ) +
     theme_classic(base_size = 14) +
     geom_point(position=position_dodge(.8),aes(x = N, y = estimate, colour = permutation,

@@ -12,8 +12,8 @@
 
 estim_corr <- function(data, vars_of_interest, k, sample_size, name){
   # create a tibble to store the output in
-  output <- tibble()
-  output_total <- tibble()
+  output <- tibble::tibble()
+  output_total <- tibble::tibble()
   # loop X number of times over the different sample sizes 
   for (j in 1:k) {
     for (i in sample_size){
@@ -35,13 +35,13 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
   colnames(output_total) <- c("N", "correlation", "cred_low", "cred_high", "permutation")
   # calculate overall intervals per sample size
   overall_output <- output_total %>%
-    group_by(N) %>%
-    summarise(
+    dplyr::group_by(N) %>%
+    dplyr::summarise(
       correlation = mean(correlation, na.rm = TRUE),
       cred_low = mean(cred_low, na.rm = TRUE),
       cred_high = mean(cred_high, na.rm = TRUE),
       permutation = 999) %>%
-    ungroup()
+    dplyr::ungroup()
   # function to divide the total dataset by 5 and to filter the sample sizes
   filt_sample <- function(sample_size, output_total) {
     filt_sel <- round((sample_size[length(sample_size)] - sample_size[1])/5)
@@ -66,7 +66,7 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
   #return(total_selection)
   
   # plot figure for the correlations
-  figure_corr <- ggplot(data=total_selection, aes(x = N, y = correlation, 
+  figure_corr <- ggplot2::ggplot(data=total_selection, aes(x = N, y = correlation, 
                                                   colour = permutation, linetype = permutation) ) +
     theme_classic(base_size = 14) +
     geom_point(position=position_dodge(.8),aes(x = N, y = correlation, colour = permutation,

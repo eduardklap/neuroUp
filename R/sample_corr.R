@@ -12,6 +12,6 @@ sample_corr <- function(data, vars_of_interest, sample_size){
   datasub<-data[1:(max(sample_size)),]
   # estimate the correlation between the variables of interest and the .95 credible interval of the correlation
   cor <- cor(datasub[[vars_of_interest[1]]],datasub[[vars_of_interest[2]]])
-  cred <- CIr(r = cor, n = (max(sample_size)), level = .95)
+  cred <- psychometric::CIr(r = cor, n = (max(sample_size)), level = .95)
   return(list(cor, cred))
 }
