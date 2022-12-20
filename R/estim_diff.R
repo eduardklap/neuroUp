@@ -72,8 +72,8 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
   total_selection$N <- as.factor(total_selection$N)
   #return(total_selection)
   
-  # plot figure for the correlations
-  figure_corr <- ggplot2::ggplot(data=total_selection, aes(x = N, y = estimate, 
+  # plot figure for the differences
+  figure_diff <- ggplot2::ggplot(data=total_selection, aes(x = N, y = estimate, 
                                                   colour = permutation, linetype = permutation) ) +
     theme_classic(base_size = 14) +
     geom_point(position=position_dodge(.8),aes(x = N, y = estimate, colour = permutation,
@@ -83,6 +83,15 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
     geom_errorbar(aes(ymin = lower, ymax=upper), width=.1, position = position_dodge(.8)) +
     scale_color_manual(values = c("#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9",
                                   "#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9","#CC79A7") ) +
+    labs(title = name) +
+    geom_hline(yintercept=0, linetype="dashed")
+  
+  # plot intervals for all samples
+  figure_interval <- ggplot2::ggplot(data = overall_output, aes(x = N)) +  
+    theme_classic(base_size=14)+ 
+    geom_line(aes(y=estimate), col="#E69F00", linewidth = 1) +
+    geom_line(aes(y=lower), col="#009E73") +  
+    geom_line(aes(y=upper), col="#009E73") +  
     labs(title = name) +
     geom_hline(yintercept=0, linetype="dashed")
   
