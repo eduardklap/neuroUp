@@ -95,5 +95,5 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
     labs(title = name) +
     geom_hline(yintercept=0, linetype="dashed")
   
-  #return(list(total_selection, figure_corr))
+  return(list(total_selection, figure_diff, figure_interval))
 }
