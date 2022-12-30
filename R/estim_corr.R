@@ -93,17 +93,19 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
                                       names_to = "measure",
                                       values_to = "correlation")
   # now plot the intervals
-  figure_interval_corr <- ggplot2::ggplot(data = long_overall_output, 
-                                     aes(x = N, 
-                                         y = correlation,
-                                         colour = measure,
-                                         size = measure)) +
+  figure_interval_corr <- ggplot2::ggplot(data = long_overall_output,
+                                          aes(x = N, y = correlation)) +
     theme_classic(base_size = 12) +
-    geom_line() +
+    geom_line(aes(colour = measure,
+                  size = measure)) +
     scale_colour_manual(values = c("#E69F00", "#009E73", "#009E73")) +
-    scale_size_manual(values = c(1.2, 0.8, 0.8)) +
+    scale_size_manual(values = c(1.2, 0.6, 0.6)) +
     labs(title = name) +
-    geom_hline(yintercept=0, linetype="dashed")
+    geom_hline(yintercept=0, linetype="dashed") +
+    geom_ribbon(data = overall_output, aes(ymin = lower, 
+                                           ymax = upper),
+                fill = "#E69F0020", 
+                colour = "#009E73")
   
   return(list(total_selection, figure_corr, figure_interval_corr))
 }

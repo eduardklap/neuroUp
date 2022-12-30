@@ -101,17 +101,19 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
                                       names_to = "measure",
                                       values_to = "estimate")
   # now plot the intervals
-  figure_interval <- ggplot2::ggplot(data = long_overall_output, 
-                                     aes(x = N, 
-                                         y = estimate,
-                                         colour = measure,
-                                         size = measure)) +
+  figure_interval <- ggplot2::ggplot(data = long_overall_output,
+                                     aes(x = N, y = estimate)) +
     theme_classic(base_size = 12) +
-    geom_line() +
+    geom_line(aes(colour = measure,
+                  size = measure)) +
     scale_colour_manual(values = c("#CC79A7", "#56B4E9", "#56B4E9")) +
-    scale_size_manual(values = c(1.2, 0.8, 0.8)) +
+    scale_size_manual(values = c(1.2, 0.6, 0.6)) +
     labs(title = name) +
-    geom_hline(yintercept=0, linetype="dashed")
+    geom_hline(yintercept=0, linetype="dashed") +
+    geom_ribbon(data = overall_output, aes(ymin = lower, 
+                                           ymax = upper),
+                fill = "#CC79A720", 
+                colour = "#56B4E9")
   
   return(list(total_selection, figure_diff, figure_interval))
 }
