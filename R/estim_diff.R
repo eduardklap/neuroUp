@@ -73,25 +73,43 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
   #return(total_selection)
   
   # plot figure for the differences
-  figure_diff <- ggplot2::ggplot(data=total_selection, aes(x = N, y = estimate, 
-                                                  colour = permutation, linetype = permutation) ) +
-    theme_classic(base_size = 14) +
-    geom_point(position=position_dodge(.8),aes(x = N, y = estimate, colour = permutation,
-                                               size = permutation)) +
-    scale_size_manual(values = c(2,2,2,2,2,2,2,2,2,2,4)) +
-    scale_linetype_manual(values = c(1,1,1,1,1,1,1,1,1,1,6)) +
-    geom_errorbar(aes(ymin = lower, ymax=upper), width=.1, position = position_dodge(.8)) +
+  figure_diff <- ggplot2::ggplot(data = total_selection, 
+                                 aes(x = N, 
+                                     y = estimate,
+                                     colour = permutation, 
+                                     linetype = permutation) ) +
+    theme_classic(base_size = 12) +
+    geom_point(position = position_dodge(.8),
+               aes(x = N,
+                   y = estimate,
+                   colour = permutation,
+                   size = permutation)) +
+    scale_size_manual(values = c(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4)) +
+    scale_linetype_manual(values = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6)) +
+    geom_errorbar(aes(ymin = lower, ymax=upper),
+                  width=.1, 
+                  position = position_dodge(.8)) +
     scale_color_manual(values = c("#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9",
                                   "#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9","#CC79A7") ) +
     labs(title = name) +
     geom_hline(yintercept=0, linetype="dashed")
   
   # plot intervals for all samples
-  figure_interval <- ggplot2::ggplot(data = overall_output, aes(x = N)) +  
-    theme_classic(base_size=14)+ 
-    geom_line(aes(y=estimate), col="#E69F00", linewidth = 1) +
-    geom_line(aes(y=lower), col="#009E73") +  
-    geom_line(aes(y=upper), col="#009E73") +  
+  # first reshape overall_output in long format
+  long_overall_output <- pivot_longer(data = overall_output, 
+                                      cols = c(estimate, lower, upper),
+                                      names_to = "measure",
+                                      values_to = "estimate")
+  # now plot the intervals
+  figure_interval <- ggplot2::ggplot(data = long_overall_output, 
+                                     aes(x = N, 
+                                         y = estimate,
+                                         colour = measure,
+                                         size = measure)) +
+    theme_classic(base_size = 12) +
+    geom_line() +
+    scale_colour_manual(values = c("#CC79A7", "#56B4E9", "#56B4E9")) +
+    scale_size_manual(values = c(1.2, 0.8, 0.8)) +
     labs(title = name) +
     geom_hline(yintercept=0, linetype="dashed")
   

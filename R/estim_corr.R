@@ -32,14 +32,14 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
     # return(output_total)
     # output_total
   }
-  colnames(output_total) <- c("N", "correlation", "cred_low", "cred_high", "permutation")
+  colnames(output_total) <- c("N", "correlation", "lower", "upper", "permutation")
   # calculate overall intervals per sample size
   overall_output <- output_total %>%
     dplyr::group_by(N) %>%
     dplyr::summarise(
       correlation = mean(correlation, na.rm = TRUE),
-      cred_low = mean(cred_low, na.rm = TRUE),
-      cred_high = mean(cred_high, na.rm = TRUE),
+      lower = mean(lower, na.rm = TRUE),
+      upper = mean(upper, na.rm = TRUE),
       permutation = 999) %>%
     dplyr::ungroup()
   # function to divide the total dataset by 5 and to filter the sample sizes
@@ -63,21 +63,47 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
   lvl_plot[lvl_plot == "999"] <- "Overall"
   total_selection$permutation <- factor(total_selection$permutation, labels=lvl_plot)
   total_selection$N <- as.factor(total_selection$N)
-  #return(total_selection)
-  
+
   # plot figure for the correlations
-  figure_corr <- ggplot2::ggplot(data=total_selection, aes(x = N, y = correlation, 
-                                                  colour = permutation, linetype = permutation) ) +
-    theme_classic(base_size = 14) +
-    geom_point(position=position_dodge(.8),aes(x = N, y = correlation, colour = permutation,
-                                               size = permutation)) +
-    scale_size_manual(values = c(2,2,2,2,2,2,2,2,2,2,4)) +
-    scale_linetype_manual(values = c(1,1,1,1,1,1,1,1,1,1,6)) +
-    geom_errorbar(aes(ymin = cred_low, ymax=cred_high), width=.1, position = position_dodge(.8)) +
+  figure_corr <- ggplot2::ggplot(data = total_selection, 
+                                 aes(x = N,
+                                     y = correlation,
+                                     colour = permutation,
+                                     linetype = permutation) ) +
+    theme_classic(base_size = 12) +
+    geom_point(position=position_dodge(.8),
+               aes(x = N,
+                   y = correlation,
+                   colour = permutation,
+                   size = permutation)) +
+    scale_size_manual(values = c(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4)) +
+    scale_linetype_manual(values = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6)) +
+    geom_errorbar(aes(ymin = lower, ymax=upper),
+                  width=.1,
+                  position = position_dodge(.8)) +
     scale_color_manual(values = c("#009E73","#009E73","#009E73","#009E73","#009E73","#009E73",
                                   "#009E73","#009E73","#009E73","#009E73", "#E69F00") ) +
     labs(title = name) +
     geom_hline(yintercept=0, linetype="dashed")
   
-  #return(list(total_selection, figure_corr))
+  # plot intervals for all samples
+  # first reshape overall_output in long format
+  long_overall_output <- pivot_longer(data = overall_output, 
+                                      cols = c(correlation, lower, upper),
+                                      names_to = "measure",
+                                      values_to = "correlation")
+  # now plot the intervals
+  figure_interval_corr <- ggplot2::ggplot(data = long_overall_output, 
+                                     aes(x = N, 
+                                         y = correlation,
+                                         colour = measure,
+                                         size = measure)) +
+    theme_classic(base_size = 12) +
+    geom_line() +
+    scale_colour_manual(values = c("#E69F00", "#009E73", "#009E73")) +
+    scale_size_manual(values = c(1.2, 0.8, 0.8)) +
+    labs(title = name) +
+    geom_hline(yintercept=0, linetype="dashed")
+  
+  return(list(total_selection, figure_corr, figure_interval_corr))
 }
