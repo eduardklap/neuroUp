@@ -63,6 +63,19 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
   lvl_plot[lvl_plot == "999"] <- "Overall"
   total_selection$permutation <- factor(total_selection$permutation, labels=lvl_plot)
   total_selection$N <- as.factor(total_selection$N)
+  
+  # calculate the proportion of permutations not contaning zero
+  overall_output_no0 <- output_total %>%
+    dplyr::group_by(N) %>%
+    dplyr::mutate(
+      nozero = (lower > 0 & upper > 0) | (lower < 0 & upper < 0)) %>%
+    dplyr::summarise(
+      correlation = mean(correlation, na.rm = TRUE),
+      lower = mean(lower, na.rm = TRUE),
+      upper = mean(upper, na.rm = TRUE),
+      nozero = mean(nozero, na.rm = TRUE),
+      permutation = 999) %>%
+    dplyr::ungroup()
 
   # plot figure for the correlations
   figure_corr <- ggplot2::ggplot(data = total_selection, 
@@ -92,9 +105,14 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
                                       cols = c(correlation, lower, upper),
                                       names_to = "measure",
                                       values_to = "correlation")
+  long_overall_output_no0 <- pivot_longer(data = overall_output_no0, 
+                                          cols = c(correlation, lower, upper),
+                                          names_to = "measure",
+                                          values_to = "correlation")
   # now plot the intervals
   figure_interval_corr <- ggplot2::ggplot(data = long_overall_output,
                                           aes(x = N, y = correlation)) +
+    geom_step(data = overall_output_no0, aes(x = N, y = nozero), colour = "#0072B2") +
     theme_classic(base_size = 12) +
     geom_line(aes(colour = measure,
                   size = measure)) +
@@ -105,7 +123,8 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
     geom_ribbon(data = overall_output, aes(ymin = lower, 
                                            ymax = upper),
                 fill = "#E69F0020", 
-                colour = "#009E73")
+                colour = "#009E73") +
+    scale_y_continuous(sec.axis = sec_axis(~.*1, name="Proportion not containing zero"))
   
   return(list(total_selection, figure_corr, figure_interval_corr))
 }
