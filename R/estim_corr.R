@@ -51,8 +51,15 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
              N == (N[1] + 3 * filt_sel) |
              N == N[length(N)]  )
   }
-  # select the 5 different sample sizes for every permutation for visualization
-  output_selection <- filt_sample(sample_size, output_total)
+  # select 10 random permutations for the 5 different sample sizes for every permutation for visualization 
+  # (only when k >50 random, otherwise select the first 10 permutations)
+  output_selection <- filt_sample(sample_size, output_total) 
+  output_selection <- if(k > 50) {
+    filter(output_selection, permutation %in% sample(permutation, size = 10, replace = FALSE))
+  } else
+  {
+    filter(output_selection, permutation %in% 1:10)
+  }
   # select the 5 different sample sizes of the overall interval for visualization
   overall_selection <- filt_sample(sample_size, overall_output)
   # combine 10 datasets per sample size with overall per sample size
