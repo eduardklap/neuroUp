@@ -25,7 +25,8 @@ Imports:
     dplyr,
     ggplot2,
     psychometric,
-    tibble
+    tibble,
+    tidyr
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
