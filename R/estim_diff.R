@@ -61,8 +61,8 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
   # select 10 random permutations for the 5 different sample sizes for every permutation for visualization 
   # (only when k >50 random, otherwise select the first 10 permutations)
   output_selection <- filt_sample(sample_size, output_total) 
-  output_selection <- if(k > 50) {
-    filter(output_selection, permutation %in% sample(permutation, size = 10, replace = FALSE))
+  output_selection <- if(k > 10) {
+    filter(output_selection, permutation %in% sample(unique(permutation), size = 10, replace = FALSE))
   } else
   {
     filter(output_selection, permutation %in% 1:10)
