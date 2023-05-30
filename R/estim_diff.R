@@ -31,14 +31,13 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
       # add output to output_total tibble
       output_total <- rbind(output_total, output)
     }
-    # 
-    # return(output_total)
-    # output_total
   }
   colnames(output_total) <- c("N", "estimate", "variance", "stdev",
                               "sterror", "lower", "upper", "permutation")
   # calculate overall intervals per sample size
   overall_output <- output_total %>%
+    dplyr::mutate(
+      nozero = (lower > 0 & upper > 0) | (lower < 0 & upper < 0)) %>%
     dplyr::group_by(N) %>%
     dplyr::summarise(
       estimate = mean(estimate, na.rm = TRUE),
@@ -47,6 +46,7 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
       sterror = mean(sterror, na.rm = TRUE),
       lower = mean(lower, na.rm = TRUE),
       upper = mean(upper, na.rm = TRUE),
+      nozero = mean(nozero, na.rm = TRUE),
       permutation = 999) %>%
     dplyr::ungroup()
   # function to divide the total dataset by 5 and to filter the sample sizes
@@ -62,34 +62,26 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
   # (only when k >50 random, otherwise select the first 10 permutations)
   output_selection <- filt_sample(sample_size, output_total) 
   output_selection <- if(k > 10) {
-    filter(output_selection, permutation %in% sample(unique(permutation), size = 10, replace = FALSE))
+    dplyr::filter(output_selection, 
+                  permutation %in% sample(unique(permutation), 
+                                          size = 10, 
+                                          replace = FALSE))
   } else
   {
-    filter(output_selection, permutation %in% 1:10)
+    dplyr::filter(output_selection, 
+                  permutation %in% 1:10)
   }
   # select the 5 different sample sizes of the overall interval for visualization
   overall_selection <- filt_sample(sample_size, overall_output)
   # combine 10 datasets per sample size with overall per sample size
-  total_selection <- rbind(output_selection, overall_selection)
+  total_selection <- dplyr::bind_rows(output_selection, overall_selection)
   
   # turn permutations and N into factors for visualisation
   lvl_plot <- levels(factor(total_selection$permutation))
   lvl_plot[lvl_plot == "999"] <- "Overall"
   total_selection$permutation <- factor(total_selection$permutation, labels=lvl_plot)
   total_selection$N <- as.factor(total_selection$N)
-  
-  # calculate the proportion of permutations not contaning zero
-  overall_output_no0 <- output_total %>%
-    dplyr::group_by(N) %>%
-    dplyr::mutate(
-      nozero = (lower > 0 & upper > 0) | (lower < 0 & upper < 0)) %>%
-    dplyr::summarise(
-      estimate = mean(estimate, na.rm = TRUE),
-      lower = mean(lower, na.rm = TRUE),
-      upper = mean(upper, na.rm = TRUE),
-      nozero = mean(nozero, na.rm = TRUE),
-      permutation = 999) %>%
-    dplyr::ungroup()
+  overall_selection$N <- as.factor(overall_selection$N)
   
   # plot figure for the differences
   figure_diff <- ggplot2::ggplot(data = total_selection, 
@@ -113,30 +105,17 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
     labs(title = name) +
     geom_hline(yintercept=0, linetype="dashed")
   
-  # plot intervals for all samples
-  # first reshape overall_output in long format
-  long_overall_output <- pivot_longer(data = overall_output, 
-                                      cols = c(estimate, lower, upper),
-                                      names_to = "measure",
-                                      values_to = "estimate")
-  long_overall_output_no0 <- pivot_longer(data = overall_output_no0, 
-                                          cols = c(estimate, lower, upper),
-                                          names_to = "measure",
-                                          values_to = "estimate")
-  # now plot the intervals
-  figure_interval <- ggplot2::ggplot(data = long_overall_output,
-                                     aes(x = N, y = estimate)) +
-    geom_step(data = overall_output_no0, aes(x = N, y = nozero), colour = "grey30") +
-    theme_classic(base_size = 12) +
-    geom_line(aes(colour = measure)) +
-    scale_colour_manual(values = c("#56B4E9", "#56B4E9", "#56B4E9")) +
-    labs(title = name) +
-    geom_hline(yintercept=0, linetype="dashed") +
-    geom_ribbon(data = overall_output, aes(ymin = lower, 
-                                           ymax = upper),
-                fill = "#CC79A720", 
-                colour = "#56B4E9") +
-    scale_y_continuous(sec.axis = sec_axis(~.*1, name="Proportion not containing zero"))
+  # plot proportion of non-zero values for selected samples
+  figure_nozero <- ggplot2::ggplot(data = overall_selection,
+                                   aes(x = N,
+                                       y = nozero) ) +
+    theme_classic(base_size = 12)  +
+    geom_col(color = "#000000", 
+             fill = "#CC79A7",
+             width = 0.6) +
+    ylim(0,1) +
+    labs(title = name, 
+         y = "Proportion not containing zero") 
   
-  return(list(total_selection, figure_diff, figure_interval))
+  return(list(total_selection, figure_diff, figure_nozero))
 }
