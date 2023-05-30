@@ -28,54 +28,13 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
       # add output to output_total tibble
       output_total <- rbind(output_total, output)
     }
-    # 
-    # return(output_total)
-    # output_total
   }
   colnames(output_total) <- c("N", "correlation", "lower", "upper", "permutation")
   # calculate overall intervals per sample size
   overall_output <- output_total %>%
-    dplyr::group_by(N) %>%
-    dplyr::summarise(
-      correlation = mean(correlation, na.rm = TRUE),
-      lower = mean(lower, na.rm = TRUE),
-      upper = mean(upper, na.rm = TRUE),
-      permutation = 999) %>%
-    dplyr::ungroup()
-  # function to divide the total dataset by 5 and to filter the sample sizes
-  filt_sample <- function(sample_size, output_total) {
-    filt_sel <- round((sample_size[length(sample_size)] - sample_size[1])/5)
-    filter(output_total,  N == N[1] |
-             N ==  (N[1] + filt_sel) |
-             N ==  (N[1] + 2 * filt_sel) |
-             N == (N[1] + 3 * filt_sel) |
-             N == N[length(N)]  )
-  }
-  # select 10 random permutations for the 5 different sample sizes for every permutation for visualization 
-  # (only when k >50 random, otherwise select the first 10 permutations)
-  output_selection <- filt_sample(sample_size, output_total) 
-  output_selection <- if(k > 10) {
-    filter(output_selection, permutation %in% sample(unique(permutation), size = 10, replace = FALSE))
-  } else
-  {
-    filter(output_selection, permutation %in% 1:10)
-  }
-  # select the 5 different sample sizes of the overall interval for visualization
-  overall_selection <- filt_sample(sample_size, overall_output)
-  # combine 10 datasets per sample size with overall per sample size
-  total_selection <- rbind(output_selection, overall_selection)
-  
-  # turn permutations and N into factors for visualisation
-  lvl_plot <- levels(factor(total_selection$permutation))
-  lvl_plot[lvl_plot == "999"] <- "Overall"
-  total_selection$permutation <- factor(total_selection$permutation, labels=lvl_plot)
-  total_selection$N <- as.factor(total_selection$N)
-  
-  # calculate the proportion of permutations not contaning zero
-  overall_output_no0 <- output_total %>%
-    dplyr::group_by(N) %>%
     dplyr::mutate(
       nozero = (lower > 0 & upper > 0) | (lower < 0 & upper < 0)) %>%
+    dplyr::group_by(N) %>%
     dplyr::summarise(
       correlation = mean(correlation, na.rm = TRUE),
       lower = mean(lower, na.rm = TRUE),
@@ -83,7 +42,40 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
       nozero = mean(nozero, na.rm = TRUE),
       permutation = 999) %>%
     dplyr::ungroup()
-
+  # function to divide the total dataset by 5 and to filter the sample sizes
+  filt_sample <- function(sample_size, output_total) {
+    filt_sel <- round((sample_size[length(sample_size)] - sample_size[1])/5)
+    dplyr::filter(output_total,  N == N[1] |
+                    N ==  (N[1] + filt_sel) |
+                    N ==  (N[1] + 2 * filt_sel) |
+                    N == (N[1] + 3 * filt_sel) |
+                    N == N[length(N)]  )
+  }
+  # select 10 random permutations for the 5 different sample sizes for every permutation for visualization 
+  # (only when k >50 random, otherwise select the first 10 permutations)
+  output_selection <- filt_sample(sample_size, output_total) 
+  output_selection <- if(k > 10) {
+    dplyr::filter(output_selection, 
+                  permutation %in% sample(unique(permutation), 
+                                          size = 10, 
+                                          replace = FALSE))
+  } else
+  {
+    dplyr::filter(output_selection, 
+                  permutation %in% 1:10)
+  }
+  # select the 5 different sample sizes of the overall interval for visualization
+  overall_selection <- filt_sample(sample_size, overall_output)
+  # combine 10 datasets per sample size with overall per sample size
+  total_selection <- dplyr::bind_rows(output_selection, overall_selection)
+  
+  # turn permutations and N into factors for visualisation
+  lvl_plot <- levels(factor(total_selection$permutation))
+  lvl_plot[lvl_plot == "999"] <- "Overall"
+  total_selection$permutation <- factor(total_selection$permutation, labels=lvl_plot)
+  total_selection$N <- as.factor(total_selection$N)
+  overall_selection$N <- as.factor(overall_selection$N)
+  
   # plot figure for the correlations
   figure_corr <- ggplot2::ggplot(data = total_selection, 
                                  aes(x = N,
@@ -106,30 +98,17 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
     labs(title = name) +
     geom_hline(yintercept=0, linetype="dashed")
   
-  # plot intervals for all samples
-  # first reshape overall_output in long format
-  long_overall_output <- pivot_longer(data = overall_output, 
-                                      cols = c(correlation, lower, upper),
-                                      names_to = "measure",
-                                      values_to = "correlation")
-  long_overall_output_no0 <- pivot_longer(data = overall_output_no0, 
-                                          cols = c(correlation, lower, upper),
-                                          names_to = "measure",
-                                          values_to = "correlation")
-  # now plot the intervals
-  figure_interval_corr <- ggplot2::ggplot(data = long_overall_output,
-                                          aes(x = N, y = correlation)) +
-    geom_step(data = overall_output_no0, aes(x = N, y = nozero), colour = "grey30") +
-    theme_classic(base_size = 12) +
-    geom_line(aes(colour = measure)) +
-    scale_colour_manual(values = c("#009E73", "#009E73", "#009E73")) +
-    labs(title = name) +
-    geom_hline(yintercept=0, linetype="dashed") +
-    geom_ribbon(data = overall_output, aes(ymin = lower, 
-                                           ymax = upper),
-                fill = "#E69F0020", 
-                colour = "#009E73") +
-    scale_y_continuous(sec.axis = sec_axis(~.*1, name="Proportion not containing zero"))
+  # plot proportion of non-zero values for selected samples
+  figure_nozero <- ggplot2::ggplot(data = overall_selection,
+                                   aes(x = N,
+                                       y = nozero) ) +
+    theme_classic(base_size = 12)  +
+    geom_col(color = "#000000", 
+             fill = "#E69F00",
+             width = 0.6) +
+    ylim(0,1) +
+    labs(title = name, 
+         y = "Proportion not containing zero")
   
-  return(list(total_selection, figure_corr, figure_interval_corr))
+  return(list(total_selection, figure_corr, figure_nozero))
 }
