@@ -27,17 +27,26 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
       output[1,5] <- output_vector[4]
       output[1,6] <- output_vector[5]
       output[1,7] <- output_vector[6]
-      output[1,8] <- j
+      output[1,8] <- output_vector[7]
+      output[1,9] <- output_vector[8]
+      output[1,10] <- output_vector[9]
+      output[1,11] <- output_vector[10]
+      output[1,12] <- output_vector[11]
+      output[1,13] <- j
       # add output to output_total tibble
       output_total <- rbind(output_total, output)
     }
   }
   colnames(output_total) <- c("N", "estimate", "variance", "stdev",
-                              "sterror", "lower", "upper", "permutation")
+                              "sterror", "lower", "upper", 
+                              "cohens_d", "d_variance", "d_sterror", 
+                              "d_lower", "d_upper", "permutation")
   # calculate overall intervals per sample size
   overall_output <- output_total %>%
     dplyr::mutate(
       nozero = (lower > 0 & upper > 0) | (lower < 0 & upper < 0)) %>%
+    dplyr::mutate(
+      d_nozero = (d_lower > 0 & d_upper > 0) | (d_lower < 0 & d_upper < 0)) %>%
     dplyr::group_by(N) %>%
     dplyr::summarise(
       estimate = mean(estimate, na.rm = TRUE),
@@ -47,6 +56,12 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
       lower = mean(lower, na.rm = TRUE),
       upper = mean(upper, na.rm = TRUE),
       nozero = mean(nozero, na.rm = TRUE),
+      cohens_d = mean(cohens_d, na.rm = TRUE),
+      d_variance = mean(d_variance, na.rm = TRUE),
+      d_sterror = mean(d_sterror, na.rm = TRUE),
+      d_lower = mean(d_lower, na.rm = TRUE),
+      d_upper = mean(d_upper, na.rm = TRUE),
+      d_nozero = mean(d_nozero, na.rm = TRUE),
       permutation = 999) %>%
     dplyr::ungroup()
   # function to divide the total dataset by 5 and to filter the sample sizes
@@ -97,8 +112,8 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
                    size = permutation)) +
     scale_size_manual(values = c(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4)) +
     scale_linetype_manual(values = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6)) +
-    geom_errorbar(aes(ymin = lower, ymax=upper),
-                  width=.1, 
+    geom_errorbar(aes(ymin = lower, ymax = upper),
+                  width = .1, 
                   position = position_dodge(.8)) +
     scale_color_manual(values = c("#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9",
                                   "#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9","#CC79A7") ) +
@@ -117,5 +132,39 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
     labs(title = name, 
          y = "Proportion not containing zero") 
   
-  return(list(total_selection, figure_diff, figure_nozero))
+  # plot figure for Cohen's d
+  figure_cohens_d <- ggplot2::ggplot(data = total_selection, 
+                                 aes(x = N, 
+                                     y = cohens_d,
+                                     colour = permutation, 
+                                     linetype = permutation) ) +
+    theme_classic(base_size = 12) +
+    geom_point(position = position_dodge(.8),
+               aes(x = N,
+                   y = cohens_d,
+                   colour = permutation,
+                   size = permutation)) +
+    scale_size_manual(values = c(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4)) +
+    scale_linetype_manual(values = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6)) +
+    geom_errorbar(aes(ymin = d_lower, ymax = d_upper),
+                  width = .1, 
+                  position = position_dodge(.8)) +
+    scale_color_manual(values = c("#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9",
+                                  "#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9","#CC79A7") ) +
+    labs(title = name, y = "Cohen's d") +
+    geom_hline(yintercept=0, linetype="dashed")
+  
+  # plot proportion of non-zero values for selected samples
+  figure_d_nozero <- ggplot2::ggplot(data = overall_selection,
+                                   aes(x = N,
+                                       y = d_nozero) ) +
+    theme_classic(base_size = 12)  +
+    geom_col(color = "#000000", 
+             fill = "#CC79A7",
+             width = 0.6) +
+    ylim(0,1) +
+    labs(title = name, 
+         y = "Proportion not containing zero") 
+  
+  return(list(total_selection, figure_diff, figure_nozero, figure_cohens_d, figure_d_nozero))
 }

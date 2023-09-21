@@ -21,5 +21,15 @@ sample_diff <- function(data, vars_of_interest, sample_size){
   sterror <- stdev/sqrt(sample_size)
   lower <- estimate - 1.96*sterror
   upper <- estimate + 1.96*sterror
-  return(list(estimate, variance, stdev, sterror, lower, upper))
+  # Estimate of Cohen's D for each dataset
+  cohens_d <- estimate/stdev
+  # Variance of Cohen's D for each dataset see logic above: 1/(SD of diff)^2*VAR. Becomes 1, because standardized
+  d_variance <- (1/(stdev)^2)*variance
+  # SE of Cohens's D for each dataset
+  d_sterror <- d_variance/sqrt(sample_size)
+  # Lower bound for Cohen's D
+  d_lower <- cohens_d - 1.96*d_sterror
+  # Upper bound for Cohen's D
+  d_upper <- cohens_d + 1.96*d_sterror
+  return(list(estimate, variance, stdev, sterror, lower, upper, cohens_d, d_variance, d_sterror, d_lower, d_upper))
 }
