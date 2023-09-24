@@ -104,7 +104,7 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
                                      y = estimate,
                                      colour = permutation, 
                                      linetype = permutation) ) +
-    theme_classic(base_size = 12) +
+    theme_classic() +
     geom_point(position = position_dodge(.8),
                aes(x = N,
                    y = estimate,
@@ -124,7 +124,7 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
   figure_nozero <- ggplot2::ggplot(data = overall_selection,
                                    aes(x = N,
                                        y = nozero) ) +
-    theme_classic(base_size = 12)  +
+    theme_classic()  +
     geom_col(color = "#000000", 
              fill = "#CC79A7",
              width = 0.6) +
@@ -138,7 +138,7 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
                                      y = cohens_d,
                                      colour = permutation, 
                                      linetype = permutation) ) +
-    theme_classic(base_size = 12) +
+    theme_classic() +
     geom_point(position = position_dodge(.8),
                aes(x = N,
                    y = cohens_d,
@@ -158,7 +158,7 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
   figure_d_nozero <- ggplot2::ggplot(data = overall_selection,
                                    aes(x = N,
                                        y = d_nozero) ) +
-    theme_classic(base_size = 12)  +
+    theme_classic()  +
     geom_col(color = "#000000", 
              fill = "#CC79A7",
              width = 0.6) +
