@@ -82,7 +82,7 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
                                      y = correlation,
                                      colour = permutation,
                                      linetype = permutation) ) +
-    theme_classic(base_size = 12) +
+    theme_classic() +
     geom_point(position=position_dodge(.8),
                aes(x = N,
                    y = correlation,
@@ -102,7 +102,7 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
   figure_nozero <- ggplot2::ggplot(data = overall_selection,
                                    aes(x = N,
                                        y = nozero) ) +
-    theme_classic(base_size = 12)  +
+    theme_classic()  +
     geom_col(color = "#000000", 
              fill = "#E69F00",
              width = 0.6) +
