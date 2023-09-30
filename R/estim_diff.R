@@ -166,5 +166,10 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
     labs(title = name, 
          y = "Proportion not containing zero") 
   
-  return(list(total_selection, figure_diff, figure_nozero, figure_cohens_d, figure_d_nozero, output_total))
+  return(list(tbl_select = total_selection,
+              fig_diff = figure_diff, 
+              fig_nozero = figure_nozero, 
+              fig_cohens_d = figure_cohens_d, 
+              fig_d_nozero = figure_d_nozero, 
+              tbl_total = output_total))
 }

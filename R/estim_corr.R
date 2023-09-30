@@ -110,5 +110,8 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
     labs(title = name, 
          y = "Proportion not containing zero")
   
-  return(list(total_selection, figure_corr, figure_nozero, output_total))
+  return(list(tbl_selection = total_selection,
+              fig_corr = figure_corr, 
+              fig_corr_nozero = figure_nozero,
+              tbl_total = output_total))
 }
