@@ -44,47 +44,47 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
   # calculate overall intervals per sample size
   overall_output <- output_total %>%
     dplyr::mutate(
-      nozero = (lower > 0 & upper > 0) | (lower < 0 & upper < 0)) %>%
+      nozero = (.data$lower > 0 & .data$upper > 0) | (.data$lower < 0 & .data$upper < 0)) %>%
     dplyr::mutate(
-      d_nozero = (d_lower > 0 & d_upper > 0) | (d_lower < 0 & d_upper < 0)) %>%
-    dplyr::group_by(N) %>%
+      d_nozero = (.data$d_lower > 0 & .data$d_upper > 0) | (.data$d_lower < 0 & .data$d_upper < 0)) %>%
+    dplyr::group_by(.data$N) %>%
     dplyr::summarise(
-      estimate = mean(estimate, na.rm = TRUE),
-      variance = mean(variance, na.rm = TRUE),
-      stdev = mean(stdev, na.rm = TRUE),
-      sterror = mean(sterror, na.rm = TRUE),
-      lower = mean(lower, na.rm = TRUE),
-      upper = mean(upper, na.rm = TRUE),
-      nozero = mean(nozero, na.rm = TRUE),
-      cohens_d = mean(cohens_d, na.rm = TRUE),
-      d_variance = mean(d_variance, na.rm = TRUE),
-      d_sterror = mean(d_sterror, na.rm = TRUE),
-      d_lower = mean(d_lower, na.rm = TRUE),
-      d_upper = mean(d_upper, na.rm = TRUE),
-      d_nozero = mean(d_nozero, na.rm = TRUE),
+      estimate = mean(.data$estimate, na.rm = TRUE),
+      variance = mean(.data$variance, na.rm = TRUE),
+      stdev = mean(.data$stdev, na.rm = TRUE),
+      sterror = mean(.data$sterror, na.rm = TRUE),
+      lower = mean(.data$lower, na.rm = TRUE),
+      upper = mean(.data$upper, na.rm = TRUE),
+      nozero = mean(.data$nozero, na.rm = TRUE),
+      cohens_d = mean(.data$cohens_d, na.rm = TRUE),
+      d_variance = mean(.data$d_variance, na.rm = TRUE),
+      d_sterror = mean(.data$d_sterror, na.rm = TRUE),
+      d_lower = mean(.data$d_lower, na.rm = TRUE),
+      d_upper = mean(.data$d_upper, na.rm = TRUE),
+      d_nozero = mean(.data$d_nozero, na.rm = TRUE),
       permutation = 999) %>%
     dplyr::ungroup()
   # function to divide the total dataset by 5 and to filter the sample sizes
   filt_sample <- function(sample_size, output_total) {
     filt_sel <- round((sample_size[length(sample_size)] - sample_size[1])/5)
-    dplyr::filter(output_total,  N == N[1] |
-             N ==  (N[1] + filt_sel) |
-             N ==  (N[1] + 2 * filt_sel) |
-             N == (N[1] + 3 * filt_sel) |
-             N == N[length(N)]  )
+    dplyr::filter(output_total,  .data$N == .data$N[1] |
+                    .data$N ==  (.data$N[1] + filt_sel) |
+                    .data$N ==  (.data$N[1] + 2 * filt_sel) |
+                    .data$N == (.data$N[1] + 3 * filt_sel) |
+                    .data$N == .data$N[length(.data$N)]  )
   }
   # select 10 random permutations for the 5 different sample sizes for every permutation for visualization 
   # (only when k >50 random, otherwise select the first 10 permutations)
   output_selection <- filt_sample(sample_size, output_total) 
   output_selection <- if(k > 10) {
     dplyr::filter(output_selection, 
-                  permutation %in% sample(unique(permutation), 
+                  .data$permutation %in% sample(unique(.data$permutation), 
                                           size = 10, 
                                           replace = FALSE))
   } else
   {
     dplyr::filter(output_selection, 
-                  permutation %in% 1:10)
+                  .data$permutation %in% 1:10)
   }
   # select the 5 different sample sizes of the overall interval for visualization
   overall_selection <- filt_sample(sample_size, overall_output)
@@ -100,70 +100,70 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
   
   # plot figure for the differences
   figure_diff <- ggplot2::ggplot(data = total_selection, 
-                                 aes(x = N, 
-                                     y = estimate,
-                                     colour = permutation, 
-                                     linetype = permutation) ) +
-    theme_classic() +
-    geom_point(position = position_dodge(.8),
-               aes(x = N,
-                   y = estimate,
-                   colour = permutation,
-                   size = permutation)) +
-    scale_size_manual(values = c(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4)) +
-    scale_linetype_manual(values = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6)) +
-    geom_errorbar(aes(ymin = lower, ymax = upper),
+                                 ggplot2::aes(x = .data$N, 
+                                              y = .data$estimate,
+                                              colour = .data$permutation, 
+                                              linetype = .data$permutation) ) +
+    ggplot2::theme_classic() +
+    ggplot2::geom_point(position = ggplot2::position_dodge(.8),
+                        ggplot2::aes(x = .data$N,
+                                     y = .data$estimate,
+                                     colour = .data$permutation,
+                                     size = .data$permutation)) +
+    ggplot2::scale_size_manual(values = c(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4)) +
+    ggplot2::scale_linetype_manual(values = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6)) +
+    ggplot2::geom_errorbar(ggplot2::aes(ymin = .data$lower, ymax = .data$upper),
                   width = .1, 
-                  position = position_dodge(.8)) +
-    scale_color_manual(values = c("#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9",
+                  position = ggplot2::position_dodge(.8)) +
+    ggplot2::scale_color_manual(values = c("#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9",
                                   "#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9","#CC79A7") ) +
-    labs(title = name) +
-    geom_hline(yintercept=0, linetype="dashed")
+    ggplot2::labs(title = name) +
+    ggplot2::geom_hline(yintercept=0, linetype="dashed")
   
   # plot proportion of non-zero values for selected samples
   figure_nozero <- ggplot2::ggplot(data = overall_selection,
-                                   aes(x = N,
-                                       y = nozero) ) +
-    theme_classic()  +
-    geom_col(color = "#000000", 
-             fill = "#CC79A7",
-             width = 0.6) +
-    ylim(0,1) +
-    labs(title = name, 
-         y = "Proportion not containing zero") 
+                                   ggplot2::aes(x = .data$N,
+                                                y = .data$nozero) ) +
+    ggplot2::theme_classic()  +
+    ggplot2::geom_col(color = "#000000", 
+                      fill = "#CC79A7",
+                      width = 0.6) +
+    ggplot2::ylim(0,1) +
+    ggplot2::labs(title = name, 
+                  y = "Proportion not containing zero") 
   
   # plot figure for Cohen's d
   figure_cohens_d <- ggplot2::ggplot(data = total_selection, 
-                                 aes(x = N, 
-                                     y = cohens_d,
-                                     colour = permutation, 
-                                     linetype = permutation) ) +
-    theme_classic() +
-    geom_point(position = position_dodge(.8),
-               aes(x = N,
-                   y = cohens_d,
-                   colour = permutation,
-                   size = permutation)) +
-    scale_size_manual(values = c(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4)) +
-    scale_linetype_manual(values = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6)) +
-    geom_errorbar(aes(ymin = d_lower, ymax = d_upper),
-                  width = .1, 
-                  position = position_dodge(.8)) +
-    scale_color_manual(values = c("#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9",
+                                     ggplot2::aes(x = .data$N, 
+                                                  y = .data$cohens_d,
+                                                  colour = .data$permutation,
+                                                  linetype = .data$permutation) ) +
+    ggplot2::theme_classic() +
+    ggplot2::geom_point(position = ggplot2::position_dodge(.8),
+                        ggplot2::aes(x = .data$N,
+                                     y = .data$cohens_d,
+                                     colour = .data$permutation,
+                                     size = .data$permutation)) +
+    ggplot2::scale_size_manual(values = c(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4)) +
+    ggplot2::scale_linetype_manual(values = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6)) +
+    ggplot2::geom_errorbar(ggplot2::aes(ymin = .data$d_lower, ymax = .data$d_upper),
+                           width = .1, 
+                           position = ggplot2::position_dodge(.8)) +
+    ggplot2::scale_color_manual(values = c("#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9",
                                   "#56B4E9","#56B4E9","#56B4E9","#56B4E9","#56B4E9","#CC79A7") ) +
-    labs(title = name, y = "Cohen's d") +
-    geom_hline(yintercept=0, linetype="dashed")
+    ggplot2::labs(title = name, y = "Cohen's d") +
+    ggplot2::geom_hline(yintercept=0, linetype="dashed")
   
   # plot proportion of non-zero values for selected samples
   figure_d_nozero <- ggplot2::ggplot(data = overall_selection,
-                                   aes(x = N,
-                                       y = d_nozero) ) +
-    theme_classic()  +
-    geom_col(color = "#000000", 
-             fill = "#CC79A7",
-             width = 0.6) +
-    ylim(0,1) +
-    labs(title = name, 
+                                     ggplot2::aes(x = .data$N,
+                                                  y = .data$d_nozero) ) +
+    ggplot2::theme_classic()  +
+    ggplot2::geom_col(color = "#000000",
+                      fill = "#CC79A7",
+                      width = 0.6) +
+    ggplot2::ylim(0,1) +
+    ggplot2::labs(title = name, 
          y = "Proportion not containing zero") 
   
   return(list(tbl_select = total_selection,

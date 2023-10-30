@@ -9,6 +9,7 @@
 #' @return And array containing the difference in raw means with associated SD, SE, 95\% CI, and width of
 #' the 95\% CI, the Cohen's D value of the difference with associated SD, SE, 95\% CI, and width of
 #' the 95\% CI, ans the sample size on which each row of results is based.
+#' @importFrom rlang .data
 
 estim_corr <- function(data, vars_of_interest, k, sample_size, name){
   # create a tibble to store the output in
@@ -33,36 +34,36 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
   # calculate overall intervals per sample size
   overall_output <- output_total %>%
     dplyr::mutate(
-      nozero = (lower > 0 & upper > 0) | (lower < 0 & upper < 0)) %>%
-    dplyr::group_by(N) %>%
+      nozero = (.data$lower > 0 & .data$upper > 0) | (.data$lower < 0 & .data$upper < 0)) %>%
+    dplyr::group_by(.data$N) %>%
     dplyr::summarise(
-      correlation = mean(correlation, na.rm = TRUE),
-      lower = mean(lower, na.rm = TRUE),
-      upper = mean(upper, na.rm = TRUE),
-      nozero = mean(nozero, na.rm = TRUE),
+      correlation = mean(.data$correlation, na.rm = TRUE),
+      lower = mean(.data$lower, na.rm = TRUE),
+      upper = mean(.data$upper, na.rm = TRUE),
+      nozero = mean(.data$nozero, na.rm = TRUE),
       permutation = 999) %>%
     dplyr::ungroup()
   # function to divide the total dataset by 5 and to filter the sample sizes
   filt_sample <- function(sample_size, output_total) {
     filt_sel <- round((sample_size[length(sample_size)] - sample_size[1])/5)
-    dplyr::filter(output_total,  N == N[1] |
-                    N ==  (N[1] + filt_sel) |
-                    N ==  (N[1] + 2 * filt_sel) |
-                    N == (N[1] + 3 * filt_sel) |
-                    N == N[length(N)]  )
+    dplyr::filter(output_total,  .data$N == .data$N[1] |
+                    .data$N ==  (.data$N[1] + filt_sel) |
+                    .data$N ==  (.data$N[1] + 2 * filt_sel) |
+                    .data$N == (.data$N[1] + 3 * filt_sel) |
+                    .data$N == .data$N[length(.data$N)]  )
   }
   # select 10 random permutations for the 5 different sample sizes for every permutation for visualization 
   # (only when k >50 random, otherwise select the first 10 permutations)
   output_selection <- filt_sample(sample_size, output_total) 
   output_selection <- if(k > 10) {
     dplyr::filter(output_selection, 
-                  permutation %in% sample(unique(permutation), 
+                  .data$permutation %in% sample(unique(.data$permutation), 
                                           size = 10, 
                                           replace = FALSE))
   } else
   {
     dplyr::filter(output_selection, 
-                  permutation %in% 1:10)
+                  .data$permutation %in% 1:10)
   }
   # select the 5 different sample sizes of the overall interval for visualization
   overall_selection <- filt_sample(sample_size, overall_output)
@@ -78,36 +79,36 @@ estim_corr <- function(data, vars_of_interest, k, sample_size, name){
   
   # plot figure for the correlations
   figure_corr <- ggplot2::ggplot(data = total_selection, 
-                                 aes(x = N,
-                                     y = correlation,
-                                     colour = permutation,
-                                     linetype = permutation) ) +
-    theme_classic() +
-    geom_point(position=position_dodge(.8),
-               aes(x = N,
-                   y = correlation,
-                   colour = permutation,
-                   size = permutation)) +
-    scale_size_manual(values = c(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4)) +
-    scale_linetype_manual(values = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6)) +
-    geom_errorbar(aes(ymin = lower, ymax=upper),
+                                 ggplot2::aes(x = .data$N,
+                                              y = .data$correlation,
+                                              colour = .data$permutation,
+                                              linetype = .data$permutation) ) +
+    ggplot2::theme_classic() +
+    ggplot2::geom_point(position = ggplot2::position_dodge(.8),
+                        ggplot2::aes(x = .data$N,
+                                     y = .data$correlation,
+                                     colour = .data$permutation,
+                                     size = .data$permutation)) +
+    ggplot2::scale_size_manual(values = c(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4)) +
+    ggplot2::scale_linetype_manual(values = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6)) +
+    ggplot2::geom_errorbar(ggplot2::aes(ymin = .data$lower, ymax = .data$upper),
                   width=.1,
-                  position = position_dodge(.8)) +
-    scale_color_manual(values = c("#009E73","#009E73","#009E73","#009E73","#009E73","#009E73",
+                  position = ggplot2::position_dodge(.8)) +
+    ggplot2::scale_color_manual(values = c("#009E73","#009E73","#009E73","#009E73","#009E73","#009E73",
                                   "#009E73","#009E73","#009E73","#009E73", "#E69F00") ) +
-    labs(title = name) +
-    geom_hline(yintercept=0, linetype="dashed")
+    ggplot2::labs(title = name) +
+    ggplot2::geom_hline(yintercept=0, linetype="dashed")
   
   # plot proportion of non-zero values for selected samples
   figure_nozero <- ggplot2::ggplot(data = overall_selection,
-                                   aes(x = N,
-                                       y = nozero) ) +
-    theme_classic()  +
-    geom_col(color = "#000000", 
-             fill = "#E69F00",
-             width = 0.6) +
-    ylim(0,1) +
-    labs(title = name, 
+                                   ggplot2::aes(x = .data$N,
+                                                y = .data$nozero) ) +
+    ggplot2::theme_classic()  +
+    ggplot2::geom_col(color = "#000000",
+                      fill = "#E69F00",
+                      width = 0.6) +
+    ggplot2::ylim(0,1) +
+    ggplot2::labs(title = name, 
          y = "Proportion not containing zero")
   
   return(list(tbl_selection = total_selection,

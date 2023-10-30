@@ -13,10 +13,10 @@ sample_diff <- function(data, vars_of_interest, sample_size){
   # calculate the mean difference between the variables of interest
   estimate <- mean(datasub[[vars_of_interest[1]]]) - mean(datasub[[vars_of_interest[2]]])
   # calculate the variance of the difference
-  variance <- var(datasub[[vars_of_interest[1]]]) + var(datasub[[vars_of_interest[2]]]) -
-    (2 * (cor(datasub[[vars_of_interest[1]]], datasub[[vars_of_interest[2]]], 
+  variance <- stats::var(datasub[[vars_of_interest[1]]]) + stats::var(datasub[[vars_of_interest[2]]]) -
+    (2 * (stats::cor(datasub[[vars_of_interest[1]]], datasub[[vars_of_interest[2]]], 
             use="pairwise.complete.obs")
-        * sd(datasub[[vars_of_interest[1]]] * sd(datasub[[vars_of_interest[2]]]))))
+        * stats::sd(datasub[[vars_of_interest[1]]] * stats::sd(datasub[[vars_of_interest[2]]]))))
   stdev <- sqrt(variance)
   sterror <- stdev/sqrt(sample_size)
   lower <- estimate - 1.96*sterror
