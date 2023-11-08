@@ -7,27 +7,27 @@
 \format{
 A data frame with 271 rows and 4 variables:
 \describe{
-  \item{participant_id}{unique id for every participant}
-  \item{age}{age in years (8.01-25.95)}
-  \item{mfg_learning}{parameter estimates for the middle frontal gyrus during
-  the learning phase (-2.54-4.83)}
-  \item{mfg_application}{parameter estimates for the middle frontal gyrus during
-  the application phase (-6.46-3.09)}
+\item{participant_id}{unique id for every participant}
+\item{age}{age in years (8.01-25.95)}
+\item{mfg_learning}{parameter estimates for the middle frontal gyrus during
+the learning phase (-2.54-4.83)}
+\item{mfg_application}{parameter estimates for the middle frontal gyrus during
+the application phase (-6.46-3.09)}
 }
 }
 \source{
-{Peters, S., & Crone, E. A. (2017). Increased striatal activity in adolescence 
- benefits learning. Nature Communications, 8(1), 1983.}
- \doi{10.1038/s41467-017-02174-z}
+{Peters, S., & Crone, E. A. (2017). Increased striatal activity in adolescence
+benefits learning. Nature Communications, 8(1), 1983.}
+\doi{10.1038/s41467-017-02174-z}
 }
 \usage{
 feedback
 }
 \description{
 A dataset containing the parameter estimates of
- the atlas-based middle frontal gyrus (Harvard-Oxford cortical atlas; 
- thresholded at 50%; center-of-mass coordinates x = -4, y = 22, z = 43),
- ), with one value for the mean activation during learning and one value 
- for the mean activation during application for all participants.
+the atlas-based middle frontal gyrus (Harvard-Oxford cortical atlas;
+thresholded at 50\%; center-of-mass coordinates x = -4, y = 22, z = 43),
+), with one value for the mean activation during learning and one value
+for the mean activation during application for all participants.
 }
 \keyword{datasets}

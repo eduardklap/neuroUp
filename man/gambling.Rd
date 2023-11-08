@@ -7,30 +7,30 @@
 \format{
 A data frame with 221 rows and 5 variables:
 \describe{
-  \item{participant_id}{unique id for every participant}
-  \item{age}{age in years (11.94-28.46)}
-  \item{lnacc_self_win}{parameter estimates for the left nucleas accumbens during
-  winning (-2.78-3.41)}
-  \item{lnacc_self_loss}{parameter estimates for the left nucleas accumbens during
-  losing (-3.84-3.28)}
-  \item{lnacc_self_winvsloss}{parameter estimates for the left nucleas accumbens for
-  the contrast winning versus losing (-2.60-4.47)}
+\item{participant_id}{unique id for every participant}
+\item{age}{age in years (11.94-28.46)}
+\item{lnacc_self_win}{parameter estimates for the left nucleas accumbens during
+winning (-2.78-3.41)}
+\item{lnacc_self_loss}{parameter estimates for the left nucleas accumbens during
+losing (-3.84-3.28)}
+\item{lnacc_self_winvsloss}{parameter estimates for the left nucleas accumbens for
+the contrast winning versus losing (-2.60-4.47)}
 }
 }
 \source{
-{Schreuders, E., Braams, B. R., Blankenstein, N. E., Peper, J. S., Güroğlu, B., & 
- Crone, E. A. (2018). Contributions of reward sensitivity to ventral striatum activity across 
- adolescence and early adulthood. Child development, 89(3), 797-810.}
- \doi{10.1111/cdev.13056}
+{Schreuders, E., Braams, B. R., Blankenstein, N. E., Peper, J. S., Güroğlu, B., &
+Crone, E. A. (2018). Contributions of reward sensitivity to ventral striatum activity across
+adolescence and early adulthood. Child development, 89(3), 797-810.}
+\doi{10.1111/cdev.13056}
 }
 \usage{
 gambling
 }
 \description{
 A dataset containing the parameter estimates of
- the anatomical mask of the left nucleus accumbens
- (Harvard-Oxford subcortical atlas; thresholded at 40%; 28 voxels included),
- with one value for the mean activation during winning and one value for the 
- mean activation during losing for all participants.
+the anatomical mask of the left nucleus accumbens
+(Harvard-Oxford subcortical atlas; thresholded at 40\%; 28 voxels included),
+with one value for the mean activation during winning and one value for the
+mean activation during losing for all participants.
 }
 \keyword{datasets}

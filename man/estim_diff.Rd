@@ -2,7 +2,7 @@
 % Please edit documentation in R/estim_diff.R
 \name{estim_diff}
 \alias{estim_diff}
-\title{Determine point estimate, SD and SE, 95\% Credibility Intervals, and interval width, for both
+\title{Determine point estimate, SD and SE, 95\\% Credibility Intervals, and interval width, for both
 differences in raw means and Cohen's D's for multiple sample sizes}
 \usage{
 estim_diff(data, vars_of_interest, k, sample_size, name)
@@ -19,11 +19,11 @@ estim_diff(data, vars_of_interest, k, sample_size, name)
 \item{name}{The title of the dataset or variables to be displayed with the figure}
 }
 \value{
-And array containing the difference in raw means with associated SD, SE, 95\% CI, and width of
-the 95\% CI, the Cohen's D value of the difference with associated SD, SE, 95\% CI, and width of
-the 95\% CI, ans the sample size on which each row of results is based.
+And array containing the difference in raw means with associated SD, SE, 95\\% CI, and width of
+the 95\\% CI, the Cohen's D value of the difference with associated SD, SE, 95\\% CI, and width of
+the 95\\% CI, ans the sample size on which each row of results is based.
 }
 \description{
-Determine point estimate, SD and SE, 95\% Credibility Intervals, and interval width, for both
+Determine point estimate, SD and SE, 95\\% Credibility Intervals, and interval width, for both
 differences in raw means and Cohen's D's for multiple sample sizes
 }

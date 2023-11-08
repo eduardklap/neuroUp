@@ -1,15 +1,36 @@
-#' Determine point estimate, SD and SE, 95\% Credibility Intervals, and interval width, for both
-#' differences in raw means and Cohen's D's for multiple sample sizes
+#' Estimate correlations
+#'
+#' `estim_corr` determines point estimate, SD and SE, 95\% Credibility
+#' Intervals, and interval width, for Pearson correlations for multiple sample
+#' sizes
 #'
 #' @param data Dataframe with the data to be analyzed
-#' @param vars_of_interest Vector containing the names of the variables to be compared on their means
+#' @param vars_of_interest Vector containing the names of the variables to be
+#'   correlated
 #' @param k The number of permutations to be used for each sample size
-#' @param sample_size The range of sample size to be used
-#' @param name The title of the dataset or variables to be displayed with the figure
-#' @return And array containing the difference in raw means with associated SD, SE, 95\% CI, and width of
-#' the 95\% CI, the Cohen's D value of the difference with associated SD, SE, 95\% CI, and width of
-#' the 95\% CI, ans the sample size on which each row of results is based.
+#' @param sample_size The range of sample size to be used (min:max)
+#' @param name The title of the dataset or variables to be displayed with the
+#'   figure
+#' @returns
+#' * `tbl_selection` returns a [tibble::tibble()] containing estimates of the Pearson’s correlation between
+#' two correlated variables for five different sample sizes (starting with the
+#' minimum sample size, then 1/5th parts of the total dataset).
+#' * `fig_corr` returns a scatterplot where for the five different sample sizes, 10 out of the total number
+#' of HDCIs computed are displayed (in green). The average estimate with
+#' credible interval summarizing the total number of HDCIs for each sample size
+#' are plotted in orange
+#' * `fig_corr_nozero` returns a barplot where for each of the five sample sizes the proportion of permutations
+#' not containing zero is displayed
+#' * `tbl_total` returns a [tibble::tibble()] containing estimates of the Pearson’s correlation between
+#' two correlated variables for all sample sizes, including the lower and upper
+#' range and the permuation number.
+#' @examples
+#' data_gambling <- gambling
+#' estim_corr(data_gambling, 
+#'   c("lnacc_self_winvsloss", "age"), 10, 
+#'   20:221, "Gambling NAcc correlation with age")
 #' @importFrom rlang .data
+#' @export
 
 estim_corr <- function(data, vars_of_interest, k, sample_size, name){
   # create a tibble to store the output in
