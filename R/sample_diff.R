@@ -26,7 +26,7 @@ sample_diff <- function(data, vars_of_interest, sample_size){
   # Variance of Cohen's D for each dataset see logic above: 1/(SD of diff)^2*VAR. Becomes 1, because standardized
   d_variance <- (1/(stdev)^2)*variance
   # SE of Cohens's D for each dataset
-  d_sterror <- d_variance/sqrt(sample_size)
+  d_sterror <- sqrt(d_variance)/sqrt(sample_size)
   # Lower bound for Cohen's D
   d_lower <- cohens_d - 1.96*d_sterror
   # Upper bound for Cohen's D

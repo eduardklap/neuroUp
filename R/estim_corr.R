@@ -1,6 +1,6 @@
 #' Estimate correlations
 #'
-#' `estim_corr` determines point estimate, SD and SE, 95\% Credibility
+#' `estim_corr` determines point estimate, SD and SE, 95% Credibility
 #' Intervals, and interval width, for Pearson correlations for multiple sample
 #' sizes
 #'
