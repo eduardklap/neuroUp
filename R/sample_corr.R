@@ -4,6 +4,7 @@
 #' @param vars_of_interest Vector containing the names of the variables to be compared on their means
 #' @param sample_size The range of sample size to be used
 #' @return list with correlations and credible intervals for given sample_size
+#' @noRd
 
 sample_corr <- function(data, vars_of_interest, sample_size){
   # create a copy of data with shuffled rows

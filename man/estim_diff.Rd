@@ -2,28 +2,57 @@
 % Please edit documentation in R/estim_diff.R
 \name{estim_diff}
 \alias{estim_diff}
-\title{Determine point estimate, SD and SE, 95\\% Credibility Intervals, and interval width, for both
-differences in raw means and Cohen's D's for multiple sample sizes}
+\title{Estimate differences (unstandardized and Cohen's d)}
 \usage{
-estim_diff(data, vars_of_interest, k, sample_size, name)
+estim_diff(data, vars_of_interest, sample_size, k = 50, name = "")
 }
 \arguments{
 \item{data}{Dataframe with the data to be analyzed}
 
-\item{vars_of_interest}{Vector containing the names of the variables to be compared on their means}
+\item{vars_of_interest}{Vector containing the names of the variables to be
+compared on their means: \code{c("var1", "var2")}}
 
-\item{k}{The number of permutations to be used for each sample size}
+\item{sample_size}{The range of sample size to be used \code{min:max}}
 
-\item{sample_size}{The range of sample size to be used}
+\item{k}{The number of permutations to be used for each sample size. Defaults to 50}
 
-\item{name}{The title of the dataset or variables to be displayed with the figure}
+\item{name}{The title of the dataset or variables to be displayed with the
+figure. Defaults to \code{""}}
 }
 \value{
-And array containing the difference in raw means with associated SD, SE, 95\\% CI, and width of
-the 95\\% CI, the Cohen's D value of the difference with associated SD, SE, 95\\% CI, and width of
-the 95\\% CI, ans the sample size on which each row of results is based.
+\itemize{
+\item \code{tbl_select} returns a \code{\link[tibble:tibble]{tibble::tibble()}} containing estimates of the
+difference in raw means with associated SD, SE, 95\% CI, and width of the 95\%
+CI (lower, upper) for five different sample sizes (starting with the minimum
+sample size, then 1/5th parts of the total dataset).
+\item \code{fig_diff} returns a scatterplot for the difference in raw means, where for
+the five different sample sizes, 10 out of the total number of HDCI's
+computed are displayed (in light blue). The average estimate with credible
+interval summarizing the total number of HDCIs for each sample size are
+plotted in reddish purple
+\item \code{fig_nozero} returns a barplot where for each of the five sample sizes the
+proportion of permutations not containing zero is displayed for the
+difference in raw means
+\item \code{fig_cohens_d} returns a scatterplot for Cohen's d, where for the five
+different sample sizes, 10 out of the total number of HDCI's computed are
+displayed (in light blue). The average estimate with credible interval
+summarizing the total number of HDCIs for each sample size are plotted in
+reddish purple
+\item \code{fig_d_nozero} returns a barplot where for each of the five sample sizes the
+proportion of permutations not containing zero is displayed for Cohen's d
+\item \code{tbl_total} returns a \code{\link[tibble:tibble]{tibble::tibble()}} containing estimates of the difference
+in raw means with associated SD, SE, 95\% CI, and width of the 95\% CI (lower,
+upper) for all sample sizes, including the permutation number.
+}
 }
 \description{
-Determine point estimate, SD and SE, 95\\% Credibility Intervals, and interval width, for both
-differences in raw means and Cohen's D's for multiple sample sizes
+\code{estim_diff} determines point estimate, SD and SE, 95\% Credibility Intervals,
+and interval width, for both differences in raw means and Cohen's d's for
+multiple sample sizes
+}
+\examples{
+data_feedback <- feedback
+estim_diff(data_feedback,
+  c("mfg_learning", "mfg_application"), 20:271,
+  10, "Feedback middle frontal gyrus")
 }

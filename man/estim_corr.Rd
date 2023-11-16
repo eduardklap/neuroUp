@@ -4,45 +4,48 @@
 \alias{estim_corr}
 \title{Estimate correlations}
 \usage{
-estim_corr(data, vars_of_interest, k, sample_size, name)
+estim_corr(data, vars_of_interest, sample_size, k = 50, name = "")
 }
 \arguments{
 \item{data}{Dataframe with the data to be analyzed}
 
 \item{vars_of_interest}{Vector containing the names of the variables to be
-correlated}
+correlated: \code{c("var1", "var2")}}
 
-\item{k}{The number of permutations to be used for each sample size}
+\item{sample_size}{The range of sample size to be used: \code{min:max}}
 
-\item{sample_size}{The range of sample size to be used (min:max)}
+\item{k}{The number of permutations to be used for each sample size. Defaults
+to \code{50}}
 
 \item{name}{The title of the dataset or variables to be displayed with the
-figure}
+figure. Defaults to \code{""}}
 }
 \value{
 \itemize{
-\item \code{tbl_selection} returns a \code{\link[tibble:tibble]{tibble::tibble()}} containing estimates of the Pearson’s correlation between
-two correlated variables for five different sample sizes (starting with the
-minimum sample size, then 1/5th parts of the total dataset).
-\item \code{fig_corr} returns a scatterplot where for the five different sample sizes, 10 out of the total number
-of HDCIs computed are displayed (in green). The average estimate with
-credible interval summarizing the total number of HDCIs for each sample size
-are plotted in orange
-\item \code{fig_corr_nozero} returns a barplot where for each of the five sample sizes the proportion of permutations
-not containing zero is displayed
-\item \code{tbl_total} returns a \code{\link[tibble:tibble]{tibble::tibble()}} containing estimates of the Pearson’s correlation between
-two correlated variables for all sample sizes, including the lower and upper
-range and the permuation number.
+\item \code{tbl_select} returns a \code{\link[tibble:tibble]{tibble::tibble()}} containing estimates of the Pearson’s
+correlation between two correlated variables with associated SD, SE, 95\% CI,
+and width of the 95\% CI (lower, upper) for five different sample sizes
+(starting with the minimum sample size, then 1/5th parts of the total
+dataset).
+\item \code{fig_corr} returns a scatterplot where for the five different sample sizes, 10
+out of the total number of HDCIs computed are displayed (in green). The
+average estimate with credible interval summarizing the total number of HDCIs
+for each sample size are plotted in orange
+\item \code{fig_corr_nozero} returns a barplot where for each of the five sample sizes
+the proportion of permutations not containing zero is displayed
+\item \code{tbl_total} returns a \code{\link[tibble:tibble]{tibble::tibble()}} containing estimates of the Pearson’s
+correlation between two correlated variables with associated SD, SE, 95\% CI,
+and width of the 95\% CI (lower, upper) for all sample sizes, including the
+permutation number.
 }
 }
 \description{
-\code{estim_corr} determines point estimate, SD and SE, 95\\% Credibility
-Intervals, and interval width, for Pearson correlations for multiple sample
-sizes
+\code{estim_corr} determines point estimate, SD and SE, 95\% Credibility Intervals,
+and interval width, for Pearson correlations for multiple sample sizes
 }
 \examples{
 data_gambling <- gambling
-estim_corr(data_gambling, 
-  c("lnacc_self_winvsloss", "age"), 10, 
-  20:221, "Gambling NAcc correlation with age")
+estim_corr(data_gambling,
+  c("lnacc_self_winvsloss", "age"), 20:221,
+  10, "Gambling NAcc correlation with age")
 }

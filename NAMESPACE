@@ -2,5 +2,6 @@
 
 export("%>%")
 export(estim_corr)
+export(estim_diff)
 importFrom(magrittr,"%>%")
 importFrom(rlang,.data)

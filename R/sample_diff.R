@@ -1,9 +1,12 @@
 #' helper function to sample the data and estimate the difference
 #'
 #' @param data Dataframe with the data to be analyzed
-#' @param vars_of_interest Vector containing the names of the variables to be compared on their means
+#' @param vars_of_interest Vector containing the names of the variables to be
+#'   compared on their means
 #' @param sample_size The range of sample size to be used
-#' @return list with correlations and credible intervals for given sample_size
+#' @return list with estimate, variance, stdev, sterror, lower, upper values for
+#'   unstandardized differences as well as Cohen's d for given sample_size
+#' @noRd
 
 sample_diff <- function(data, vars_of_interest, sample_size){
   # create a copy of data with shuffled rows

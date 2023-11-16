@@ -1,16 +1,47 @@
-#' Determine point estimate, SD and SE, 95\% Credibility Intervals, and interval width, for both
-#' differences in raw means and Cohen's D's for multiple sample sizes
+#' Estimate differences (unstandardized and Cohen's d)
+#'
+#' `estim_diff` determines point estimate, SD and SE, 95% Credibility Intervals,
+#' and interval width, for both differences in raw means and Cohen's d's for
+#' multiple sample sizes
 #'
 #' @param data Dataframe with the data to be analyzed
-#' @param vars_of_interest Vector containing the names of the variables to be compared on their means
-#' @param k The number of permutations to be used for each sample size
-#' @param sample_size The range of sample size to be used
-#' @param name The title of the dataset or variables to be displayed with the figure
-#' @return And array containing the difference in raw means with associated SD, SE, 95\% CI, and width of
-#' the 95\% CI, the Cohen's D value of the difference with associated SD, SE, 95\% CI, and width of
-#' the 95\% CI, ans the sample size on which each row of results is based.
+#' @param vars_of_interest Vector containing the names of the variables to be
+#'   compared on their means: `c("var1", "var2")`
+#' @param sample_size The range of sample size to be used `min:max`
+#' @param k The number of permutations to be used for each sample size. Defaults to 50
+#' @param name The title of the dataset or variables to be displayed with the
+#'   figure. Defaults to `""`
+#' @returns
+#' * `tbl_select` returns a [tibble::tibble()] containing estimates of the
+#' difference in raw means with associated SD, SE, 95% CI, and width of the 95%
+#' CI (lower, upper) for five different sample sizes (starting with the minimum
+#' sample size, then 1/5th parts of the total dataset).
+#' * `fig_diff` returns a scatterplot for the difference in raw means, where for
+#' the five different sample sizes, 10 out of the total number of HDCI's
+#' computed are displayed (in light blue). The average estimate with credible
+#' interval summarizing the total number of HDCIs for each sample size are
+#' plotted in reddish purple
+#' * `fig_nozero` returns a barplot where for each of the five sample sizes the
+#' proportion of permutations not containing zero is displayed for the
+#' difference in raw means
+#' * `fig_cohens_d` returns a scatterplot for Cohen's d, where for the five
+#' different sample sizes, 10 out of the total number of HDCI's computed are
+#' displayed (in light blue). The average estimate with credible interval
+#' summarizing the total number of HDCIs for each sample size are plotted in
+#' reddish purple
+#' * `fig_d_nozero` returns a barplot where for each of the five sample sizes the
+#' proportion of permutations not containing zero is displayed for Cohen's d
+#' * `tbl_total` returns a [tibble::tibble()] containing estimates of the difference
+#' in raw means with associated SD, SE, 95% CI, and width of the 95% CI (lower,
+#' upper) for all sample sizes, including the permutation number.
+#' @examples
+#' data_feedback <- feedback
+#' estim_diff(data_feedback,
+#'   c("mfg_learning", "mfg_application"), 20:271,
+#'   10, "Feedback middle frontal gyrus")
+#' @export
 
-estim_diff <- function(data, vars_of_interest, k, sample_size, name){
+estim_diff <- function(data, vars_of_interest, sample_size, k = 50, name = ""){
   # create a tibble to store the output in
   output <- tibble::tibble()
   output_total <- tibble::tibble()
@@ -130,7 +161,7 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
                       width = 0.6) +
     ggplot2::ylim(0,1) +
     ggplot2::labs(title = name, 
-                  y = "Proportion not containing zero") 
+                  y = "Proportion not containing zero (raw differences)") 
   
   # plot figure for Cohen's d
   figure_cohens_d <- ggplot2::ggplot(data = total_selection, 
@@ -164,7 +195,7 @@ estim_diff <- function(data, vars_of_interest, k, sample_size, name){
                       width = 0.6) +
     ggplot2::ylim(0,1) +
     ggplot2::labs(title = name, 
-         y = "Proportion not containing zero") 
+         y = "Proportion not containing zero (Cohen's d)") 
   
   return(list(tbl_select = total_selection,
               fig_diff = figure_diff, 
