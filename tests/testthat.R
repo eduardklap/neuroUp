@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
 library(testthat)
-library(NeuroUp)
+library(neuroUp)
 
-test_check("NeuroUp")
+test_check("neuroUp")

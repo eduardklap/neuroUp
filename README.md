@@ -1,18 +1,18 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# NeuroUp
+# neuroUp
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of NeuroUp is to perform empirical sample size determination
+The goal of neuroUp is to perform empirical sample size determination
 and Bayesian updating for region of interest based task-related fMRI
 studies.
 
 ## Installation
 
-You can install the development version of NeuroUp from
+You can install the development version of neuroUp from
 [GitHub](https://github.com/) with:
 
 ``` r

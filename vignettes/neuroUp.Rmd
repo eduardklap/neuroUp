@@ -1,0 +1,31 @@
+---
+title: "neuroUp"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{neuroUp}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(neuroUp)
+```
+
+## Introduction
+
+
+As an example, we read the Feedback task fMRI region of interest data using the `read_csv()` function from the `readr` package. This data comes shipped with the `NeuroUp` package in two forms: as an R dataset that you can directly call using `feedback` and as a `csv` file in the `extdata/` folder. Here, we load the data from the csv-file to mimic the expected use-case that you have region of interest data in a similar format:
+```{r}
+feedback_csv <- (system.file("extdata/feedback.csv", package = "NeuroUp"))
+feedback_data <- readr::read_csv(feedback_csv)
+```
+
+
+

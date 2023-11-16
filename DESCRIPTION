@@ -1,7 +1,8 @@
-Package: NeuroUp
+Package: neuroUp
 Type: Package
-Title: Plan Sample Size based on Desired Precision of Estimated Mean
-        Difference or Cohen's D
+Title: Plan Sample Size for fmri Regions of Interest based on 
+        Desired Precision of Estimated Mean Difference, 
+        Cohen's D, or Pearson's correlation
 Version: 0.1.1
 Author: c(person(  "Eduard", "Klapwijk",
                 email = "et.klapwijk@gmail.com",
@@ -28,8 +29,12 @@ Imports:
     tibble,
     magrittr
 Suggests: 
+    knitr,
+    readr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Depends: 
     R (>= 2.10)
 Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr
