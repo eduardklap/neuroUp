@@ -1,8 +1,8 @@
 ---
-title: "neuroUp"
+title: "Introduction to neuroUp"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{neuroUp}
+  %\VignetteIndexEntry{Introduction to neuroUp}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -12,20 +12,125 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-```
-
-```{r setup}
 library(neuroUp)
 ```
 
-## Introduction
+Are you:
 
+* Planning a task-related functional MRI (fMRI) study?
 
+* Focusing on effects in regions of interest?
+
+* Aiming to properly power such a study with an adequate sample size to reliably detect effects of interest?
+
+* Able to access a previously collected dataset that used a similar task?
+
+Then the `neuroUp` package can help:
+
+* When you supply existing data from a similar task and similar region of interest.
+
+* It will provide sample size estimations using empirical Bayesian updating. 
+
+* The package will build plots that show the sample size required to estimate raw differences, Cohen’s d, or Pearson’s correlation with a certain precision.
+
+* Using these estimates you can plan your research project, and report empirically determined sample size estimations in your research proposal or pre-registration. 
+
+This document will show how to use the package.
+
+## Data: feedback fMRI task
 As an example, we read the Feedback task fMRI region of interest data using the `read_csv()` function from the `readr` package. This data comes shipped with the `NeuroUp` package in two forms: as an R dataset that you can directly call using `feedback` and as a `csv` file in the `extdata/` folder. Here, we load the data from the csv-file to mimic the expected use-case that you have region of interest data in a similar format:
 ```{r}
-feedback_csv <- (system.file("extdata/feedback.csv", package = "NeuroUp"))
+# load feedback.csv data located at local system 
+feedback_csv <- (system.file("extdata/feedback.csv", package = "neuroUp"))
+
+# use read_csv function to load csv-file as tibble
 feedback_data <- readr::read_csv(feedback_csv)
 ```
 
+When you have a csv-file locally you can load it directly like this:
+```{r, eval=FALSE}
+taskname_data <- readr::read_csv("path/to/filename.csv")
+```
 
+## Estimate raw differences and Cohen's d
+
+`estim_diff` allows you to determine the sample size required to estimate differences in raw means and Cohen's d's for multiple sample sizes with a certain precision. Precision is presented in the form of a 95% highest density credible interval (HDCI), that is, the narrowest possible interval that is believed to contain the true value of the parameter of interest with a probability of .95 . The narrower this interval, the higher the precision with which the parameter is estimated.
+
+In this example, we are interested in the contrast between the learning phase and the application phase in the atlas-based middle frontal gyrus during the feedback task. We use an existing dataset with a sample size of `N = 271`, and for all sample sizes between a minimum (e.g., `N = 20`) and maximum sample size of the sample at hand the `estim_diff()` function will compute the HDCI. To account for the arbitrary order of the participant in a data set, this is done for a set number of permutations (50 by default), of the participants in the data set. For each sample size, the average HDCI of all permutations is also calculated. 
+
+The following arguments need to be provided:
+
+* `data` should be a dataframe with the data to be analyzed (`feedback_data` in our example)
+
+* `vars_of_interest` should be a vector containing the names of the variables to be compared on their means (`c("mfg_learning", "mfg_application")` in our example)
+
+* `sample_size` is the range of sample size to be used (`20:271` in our example)
+
+* `k` is the number of permutations to be used for each sample size. We will use a smaller number (`20`) than the default (`50`) to reduce the build-time of this vignette
+
+* `name` is an optional title of the dataset or variables to be displayed with the figures. We will use `"Feedback middle frontal gyrus"` in our example
+
+We provide these arguments to the `estim_diff()` function and store it in a new object called `feedback_estim`. Before we do so, we set the seed value to make sure we get the same results when re-running the function.
+
+```{r}
+set.seed(1234)
+
+feedback_estim <- estim_diff(feedback_data,
+                             c("mfg_learning", "mfg_application"), 20:271,
+                             20, "Feedback middle frontal gyrus")
+```
+
+## Explore `estim_diff()` output
+
+The `estim_diff()` function provides several outputs that we can call to explore the results of the estimations. We will display the different outputs below.
+
+### fig_diff: scatterplot with HDCI's for difference in raw means
+
+First, we will plot `fig_diff`, which returns a scatterplot for the difference in raw means, where for five different sample sizes, 10 out of the total number of HDCI's computed are displayed (in light blue). The average estimate with credible interval summarizing the total number of HDCIs for each sample size are plotted in reddish purple
+
+```{r, out.width="500px", fig.dim=c(5,3), dpi=300}
+feedback_estim$fig_diff
+```
+
+### fig_nozero: barplot with proportion permutations not containing zero for difference in raw means
+
+The second plot we will display is `fig_nozero`, which returns a barplot where for each of the five sample sizes the proportion of permutations not containing zero is displayed for the difference in raw means:
+
+```{r, out.width="500px", fig.dim=c(5,3), dpi=300}
+feedback_estim$fig_nozero
+```
+
+### fig_cohens_d: scatterplot with HDCI's for difference in raw means
+
+Next, we will plot `fig_cohens_d`, which returns a scatterplot for Cohen's d, where for five different sample sizes, 10 out of the total number of HDCI's computed are displayed (in light blue). The average estimate with credible interval summarizing the total number of HDCIs for each sample size are plotted in reddish purple
+
+```{r, out.width="500px", fig.dim=c(5,3), dpi=300}
+feedback_estim$fig_cohens_d
+```
+
+### fig_d_nozero: barplot with proportion permutations not containing zero for difference in raw means
+
+The final plot we will display is `fig_d_nozero`, which returns a barplot where for each of the five sample sizes the proportion of permutations not containing zero is displayed for Cohen's d:
+
+```{r, out.width="500px", fig.dim=c(5,3), dpi=300}
+feedback_estim$fig_d_nozero
+```
+
+### tbl_select & tbl_total: tibbles with estimates
+
+The `estim_diff()` function also returns two tibbles with the values on which the previous plots are based.
+
+`tbl_select` returns a tibble containing estimates of the difference in raw means and of Cohen's d with associated SD, SE, 95% CI, and width of the 95% CI (lower, upper) for five different sample sizes (starting with the minimum sample size, then 1/5th parts of the total dataset). This is the summary data used to plot the figures:
+
+```{r}
+feedback_estim$tbl_select
+```
+
+`tbl_total` returns a tibble containing estimates of the difference in raw means and of Cohen's d with associated SD, SE, 95% CI, and width of the 95% CI (lower, upper) for all sample sizes, including the permutation number. This is the total (large) table with all the estimates for all requested sample sizes and permutations:
+
+```{r}
+feedback_estim$tbl_total
+```
+
+## Estimate correlations 
 

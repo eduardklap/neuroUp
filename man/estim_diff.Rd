@@ -22,9 +22,9 @@ figure. Defaults to \code{""}}
 \value{
 \itemize{
 \item \code{tbl_select} returns a \code{\link[tibble:tibble]{tibble::tibble()}} containing estimates of the
-difference in raw means with associated SD, SE, 95\% CI, and width of the 95\%
-CI (lower, upper) for five different sample sizes (starting with the minimum
-sample size, then 1/5th parts of the total dataset).
+difference in raw means and of Cohen's d with associated SD, SE, 95\% CI, and
+width of the 95\% CI (lower, upper) for five different sample sizes (starting
+with the minimum sample size, then 1/5th parts of the total dataset).
 \item \code{fig_diff} returns a scatterplot for the difference in raw means, where for
 the five different sample sizes, 10 out of the total number of HDCI's
 computed are displayed (in light blue). The average estimate with credible
@@ -41,8 +41,9 @@ reddish purple
 \item \code{fig_d_nozero} returns a barplot where for each of the five sample sizes the
 proportion of permutations not containing zero is displayed for Cohen's d
 \item \code{tbl_total} returns a \code{\link[tibble:tibble]{tibble::tibble()}} containing estimates of the difference
-in raw means with associated SD, SE, 95\% CI, and width of the 95\% CI (lower,
-upper) for all sample sizes, including the permutation number.
+in raw means and of Cohen's d with associated SD, SE, 95\% CI, and width of
+the 95\% CI (lower, upper) for all sample sizes, including the permutation
+number.
 }
 }
 \description{

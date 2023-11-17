@@ -6,6 +6,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
+## Overview
+
 The goal of neuroUp is to perform empirical sample size determination
 and Bayesian updating for region of interest based task-related fMRI
 studies.
