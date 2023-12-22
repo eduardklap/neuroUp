@@ -30,7 +30,8 @@ Suggests:
     knitr,
     readr,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    vdiffr
 Config/testthat/edition: 3
 Depends: 
     R (>= 2.10)
