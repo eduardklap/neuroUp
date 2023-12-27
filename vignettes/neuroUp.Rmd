@@ -52,7 +52,7 @@ When you have a csv-file locally you can load it directly like this:
 taskname_data <- readr::read_csv("path/to/filename.csv")
 ```
 
-## Estimate raw differences and Cohen's d
+# Estimate raw differences and Cohen's d
 
 `estim_diff` allows you to determine the sample size required to estimate differences in raw means and Cohen's d's for multiple sample sizes with a certain precision. Precision is presented in the form of a 95% highest density credible interval (HDCI), that is, the narrowest possible interval that is believed to contain the true value of the parameter of interest with a probability of .95 . The narrower this interval, the higher the precision with which the parameter is estimated.
 
@@ -102,7 +102,7 @@ feedback_estim$fig_nozero
 
 ### fig_cohens_d: scatterplot with HDCI's for difference in raw means
 
-Next, we will plot `fig_cohens_d`, which returns a scatterplot for Cohen's d, where for five different sample sizes, 10 out of the total number of HDCI's computed are displayed (in light blue). The average estimate with credible interval summarizing the total number of HDCIs for each sample size are plotted in reddish purple
+Next, we will plot `fig_cohens_d`, which returns a scatterplot for Cohen's d, where for five different sample sizes, 10 out of the total number of HDCI's computed are displayed (in light blue). The average estimate with credible interval summarizing the total number of HDCIs for each sample size are plotted in reddish purple:
 
 ```{r, out.width="500px", fig.dim=c(5,3), dpi=300}
 feedback_estim$fig_cohens_d
@@ -132,5 +132,78 @@ feedback_estim$tbl_select
 feedback_estim$tbl_total
 ```
 
-## Estimate correlations 
+# Estimate correlations 
 
+## Data: gambling fMRI task
+As an example, we read the Gambling task fMRI region of interest data using the `read_csv()` function from the `readr` package. Just like the Feedback data above, this data comes shipped with the `NeuroUp` package in two forms: as an R dataset that you can directly call using `gambling` and as a `csv` file in the `extdata/` folder. Again, we load the data from the csv-file to mimic the expected use-case that you have region of interest data in a similar format:
+```{r}
+# load gambling.csv data located at local system 
+gambling_csv <- (system.file("extdata/gambling.csv", package = "neuroUp"))
+
+# use read_csv function to load csv-file as tibble
+gambling_data <- readr::read_csv(gambling_csv)
+```
+
+## Estimate correlations: `estim_corr`
+
+`estim_corr` allows you to determine the sample size required to estimate Pearson correlations for multiple sample sizes with a certain precision. Precision is presented in the form of a 95% highest density credible interval (HDCI), that is, the narrowest possible interval that is believed to contain the true value of the parameter of interest with a probability of .95 . The narrower this interval, the higher the precision with which the parameter is estimated.
+
+In this example, we are interested in the correlation between age and activity in the anatomical mask of the left nucleus accumbens during the gambling task (winning for self > losing for self contrast). We use an existing dataset with a sample size of `N = 221`, and for all sample sizes between a minimum (e.g., `N = 20`) and maximum sample size of the sample at hand the `estim_corr()` function will compute the HDCI. To account for the arbitrary order of the participant in a data set, this is done for a set number of permutations (50 by default), of the participants in the data set. For each sample size, the average HDCI of all permutations is also calculated. 
+
+The following arguments need to be provided:
+
+* `data` should be a dataframe with the data to be analyzed (`gambling_data` in our example)
+
+* `vars_of_interest` should be a vector containing the names of the variables to be correlated (`c("lnacc_self_winvsloss", "age")` in our example)
+
+* `sample_size` is the range of sample size to be used (`20:221` in our example)
+
+* `k` is the number of permutations to be used for each sample size. We will use a smaller number (`20`) than the default (`50`) to reduce the build-time of this vignette
+
+* `name` is an optional title of the dataset or variables to be displayed with the figures. We will use `"Gambling NAcc correlation w/ age"` in our example
+
+We provide these arguments to the `estim_corr()` function and store it in a new object called `gambling_estim`. Before we do so, we set the seed value to make sure we get the same results when re-running the function.
+
+```{r}
+set.seed(1234)
+
+gambling_estim <- estim_corr(gambling_data,
+                             c("lnacc_self_winvsloss", "age"), 20:221,
+                             20, "Gambling NAcc correlation w/ age")
+```
+
+## Explore `estim_corr()` output
+
+The `estim_corr()` function provides several outputs that we can call to explore the results of the estimations. We will display the different outputs below.
+
+### fig_corr: scatterplot with HDCI's for correlations
+
+First, we will plot `fig_corr`, which returns a scatterplot for the difference in raw means, where for five different sample sizes, 10 out of the total number of HDCI's computed are displayed (in green). The average estimate with credible interval summarizing the total number of HDCIs for each sample size are plotted in orange:
+
+```{r, out.width="500px", fig.dim=c(5,3), dpi=300}
+gambling_estim$fig_corr
+```
+
+### fig_nozero: barplot with proportion permutations not containing zero for the correlations
+
+The second plot we will display is `fig_corr_nozero`, which returns a barplot where for each of the five sample sizes the proportion of permutations not containing zero is displayed for the correlations:
+
+```{r, out.width="500px", fig.dim=c(5,3), dpi=300}
+gambling_estim$fig_corr_nozero
+```
+
+### tbl_select & tbl_total: tibbles with estimates of the correlations
+
+The `estim_corr()` function also returns two tibbles with the values on which the previous plots are based.
+
+`tbl_select` returns a tibble containing estimates of the Pearson’s correlation between two correlated variables with associated SD, SE, 95% CI, and width of the 95% CI (lower, upper) for five different sample sizes (starting with the minimum sample size, then 1/5th parts of the total dataset). This is the summary data used to plot the figures:
+
+```{r}
+gambling_estim$tbl_select
+```
+
+`tbl_total` returns a tibble containing estimates of the Pearson’s correlation between two correlated variables with associated SD, SE, 95% CI, and width of the 95% CI (lower, upper) for all sample sizes, including the permutation number. This is the total (large) table with all the estimates for all requested sample sizes and permutations:
+
+```{r}
+gambling_estim$tbl_total
+```
