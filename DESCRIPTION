@@ -2,7 +2,7 @@ Package: neuroUp
 Type: Package
 Title: Plan Sample Size for fMRI Regions of Interest research using Bayesian updating
 Version: 0.1.1
-Author: c(person(  "Eduard", "Klapwijk",
+Authors@R: c(person(  "Eduard", "Klapwijk",
                 email = "et.klapwijk@gmail.com",
                 role = c("aut", "cre"),
                 comment = c(ORCID = "0000-0002-8936-0365")), 
@@ -12,7 +12,6 @@ Author: c(person(  "Eduard", "Klapwijk",
           person( "Joran", "Jongerling", 
                 role = c("aut"),
                 comment = c(ORCID = "0000-0001-5697-1381")))
-Maintainer: The package maintainer <yourself@somewhere.net>
 Description: The package calculates the precision in mean differences (raw or Cohen's D) and correation coefficients for different sample sizes using permutations of the collected data.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -37,3 +36,4 @@ Depends:
     R (>= 2.10)
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
+URL: https://eduardklap.github.io/neuroUp/

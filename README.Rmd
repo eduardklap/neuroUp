@@ -30,5 +30,5 @@ You can install the development version of neuroUp from [GitHub](https://github.
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("eduardklap/neuro-up")
+devtools::install_github("eduardklap/neuroUp")
 ```
