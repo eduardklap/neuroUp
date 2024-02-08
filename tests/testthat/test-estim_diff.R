@@ -5,6 +5,7 @@ test_that("output class is correct", {
   expect_s3_class(expected$tbl_select, "data.frame")
   expect_s3_class(expected$fig_diff, "gg")
   expect_s3_class(expected$fig_nozero, "gg")
+  expect_s3_class(expected$fig_cohens_d, "gg")
   expect_s3_class(expected$fig_d_nozero, "gg")
   expect_s3_class(expected$tbl_total, "data.frame")
 })
@@ -22,6 +23,9 @@ test_that("check that plots look as expected", {
     vdiffr::expect_doppelganger(
       title = "create fig nozero",
       fig = expected_fig$fig_nozero,)
+    vdiffr::expect_doppelganger(
+      title = "create fig cohen's d",
+      fig = expected_fig$fig_cohens_d,)
     vdiffr::expect_doppelganger(
       title = "create fig d nozero",
       fig = expected_fig$fig_d_nozero,)
