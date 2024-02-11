@@ -62,23 +62,30 @@ estim_diff <- function(data, vars_of_interest, sample_size, k = 50, name = ""){
       output[1,8] <- output_vector[7]
       output[1,9] <- output_vector[8]
       output[1,10] <- output_vector[9]
-      output[1,11] <- output_vector[10]
-      output[1,12] <- output_vector[11]
-      output[1,13] <- j
+      output[1,11] <- j
       # add output to output_total tibble
       output_total <- rbind(output_total, output)
     }
   }
-  colnames(output_total) <- c("N", "estimate", "variance", "stdev",
-                              "sterror", "lower", "upper", 
-                              "cohens_d", "d_variance", "d_sterror", 
-                              "d_lower", "d_upper", "permutation")
+  colnames(output_total) <- c(
+    "N",
+    "estimate",
+    "variance",
+    "stdev",
+    "sterror",
+    "lower",
+    "upper",
+    "cohens_d",
+    "d_lower",
+    "d_upper",
+    "permutation"
+  )
   # calculate overall intervals per sample size
   overall_output <- output_total %>%
-    dplyr::mutate(
-      nozero = (.data$lower > 0 & .data$upper > 0) | (.data$lower < 0 & .data$upper < 0)) %>%
-    dplyr::mutate(
-      d_nozero = (.data$d_lower > 0 & .data$d_upper > 0) | (.data$d_lower < 0 & .data$d_upper < 0)) %>%
+    dplyr::mutate(nozero = (.data$lower > 0 &
+                              .data$upper > 0) | (.data$lower < 0 & .data$upper < 0)) %>%
+    dplyr::mutate(d_nozero = (.data$d_lower > 0 &
+                                .data$d_upper > 0) | (.data$d_lower < 0 & .data$d_upper < 0)) %>%
     dplyr::group_by(.data$N) %>%
     dplyr::summarise(
       estimate = mean(.data$estimate, na.rm = TRUE),
@@ -89,12 +96,11 @@ estim_diff <- function(data, vars_of_interest, sample_size, k = 50, name = ""){
       upper = mean(.data$upper, na.rm = TRUE),
       nozero = mean(.data$nozero, na.rm = TRUE),
       cohens_d = mean(.data$cohens_d, na.rm = TRUE),
-      d_variance = mean(.data$d_variance, na.rm = TRUE),
-      d_sterror = mean(.data$d_sterror, na.rm = TRUE),
       d_lower = mean(.data$d_lower, na.rm = TRUE),
       d_upper = mean(.data$d_upper, na.rm = TRUE),
       d_nozero = mean(.data$d_nozero, na.rm = TRUE),
-      permutation = 999) %>%
+      permutation = 999
+    ) %>%
     dplyr::ungroup()
   # function to divide the total dataset by 5 and to filter the sample sizes
   filt_sample <- function(sample_size, output_total) {
