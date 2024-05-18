@@ -24,7 +24,8 @@ Imports:
     ggplot2,
     psychometric,
     tibble,
-    magrittr
+    magrittr,
+    bootstrap
 Suggests: 
     knitr,
     readr,
