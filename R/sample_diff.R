@@ -29,9 +29,9 @@ sample_diff <- function(data, vars_of_interest, sample_size){
   theta <- function(x) {
     mean(x) / stats::sd(x)
   }
-  # bootstrap * 1000
+  # bootstrap * 100
   bcd <-  bootstrap::bootstrap(datasub[[vars_of_interest[1]]] -
-                                 datasub[[vars_of_interest[2]]], 1000, theta)
+                                 datasub[[vars_of_interest[2]]], 100, theta)
   # calculate average Cohen's D
   cohens_d <- mean(bcd$thetastar)
   # lower bound for Cohen's D
