@@ -65,7 +65,7 @@ estim_corr <- function(data, vars_of_interest, sample_size, k = 50, name = ""){
       lower = mean(.data$lower, na.rm = TRUE),
       upper = mean(.data$upper, na.rm = TRUE),
       nozero = mean(.data$nozero, na.rm = TRUE),
-      permutation = 999) %>%
+      permutation = 999999) %>%
     dplyr::ungroup()
   # function to divide the total dataset by 5 and to filter the sample sizes
   filt_sample <- function(sample_size, output_total) {
@@ -96,7 +96,7 @@ estim_corr <- function(data, vars_of_interest, sample_size, k = 50, name = ""){
   
   # turn permutations and N into factors for visualisation
   lvl_plot <- levels(factor(total_selection$permutation))
-  lvl_plot[lvl_plot == "999"] <- "Overall"
+  lvl_plot[lvl_plot == "999999"] <- "Overall"
   total_selection$permutation <- factor(total_selection$permutation, labels=lvl_plot)
   total_selection$N <- as.factor(total_selection$N)
   overall_selection$N <- as.factor(overall_selection$N)
