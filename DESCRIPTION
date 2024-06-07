@@ -1,7 +1,7 @@
 Package: neuroUp
 Type: Package
 Title: Plan Sample Size for fMRI Regions of Interest research using Bayesian updating
-Version: 0.1.1
+Version: 0.2.0
 Authors@R: c(person(  "Eduard", "Klapwijk",
                 email = "et.klapwijk@gmail.com",
                 role = c("aut", "cre"),
