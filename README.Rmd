@@ -33,3 +33,11 @@ You can install the development version of neuroUp from [GitHub](https://github.
 # install.packages("devtools")
 devtools::install_github("eduardklap/neuroUp")
 ```
+
+## Citation
+
+To cite package neuroUp in publications use:
+
+Klapwijk, E., Hoijtink, H., & Jongerling, J. (2024). neuroUp: Plan sample size for fMRI regions of interest research using Bayesian updating. https://doi.org/10.5281/zenodo.11526169
+
+
