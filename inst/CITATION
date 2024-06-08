@@ -1,0 +1,12 @@
+bibentry(
+  bibtype  = "Misc",
+  title    = "neuroUp: Plan sample size for fMRI regions of 
+                   interest research using Bayesian updating",
+  author   = c(
+    person(given = "Eduard", family = "Klapwijk"),
+    person(given = "Herbert", family = "Hoijtink"),
+    person(given = "Joran", family = "Jongerling",)
+    ),
+  year     = "2024",
+  doi      = "10.5281/zenodo.11526169"
+)
