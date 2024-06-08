@@ -26,7 +26,7 @@ authors:
   given-names: Joran
   orcid: https://orcid.org/0000-0001-5697-1381
 preferred-citation:
-  type: software
+  type: generic
   title: 'neuroUp: Plan sample size for fMRI regions of interest research using Bayesian
     updating'
   authors:
@@ -40,7 +40,7 @@ preferred-citation:
   - family-names: Jongerling
     given-names: Joran
     orcid: https://orcid.org/0000-0001-5697-1381
-  year: 2024
+  year: '2024'
   doi: 10.5281/zenodo.11526169
 url: https://eduardklap.github.io/neuroUp/
 contact:
