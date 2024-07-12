@@ -1,51 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://eduardklap.github.io/neuroUp/404.html</loc>
-  </url>
-  <url>
-    <loc>https://eduardklap.github.io/neuroUp/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://eduardklap.github.io/neuroUp/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://eduardklap.github.io/neuroUp/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://eduardklap.github.io/neuroUp/articles/neuroUp.html</loc>
-  </url>
-  <url>
-    <loc>https://eduardklap.github.io/neuroUp/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://eduardklap.github.io/neuroUp/index.html</loc>
-  </url>
-  <url>
-    <loc>https://eduardklap.github.io/neuroUp/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://eduardklap.github.io/neuroUp/reference/estim_corr.html</loc>
-  </url>
-  <url>
-    <loc>https://eduardklap.github.io/neuroUp/reference/estim_diff.html</loc>
-  </url>
-  <url>
-    <loc>https://eduardklap.github.io/neuroUp/reference/feedback.html</loc>
-  </url>
-  <url>
-    <loc>https://eduardklap.github.io/neuroUp/reference/gambling.html</loc>
-  </url>
-  <url>
-    <loc>https://eduardklap.github.io/neuroUp/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://eduardklap.github.io/neuroUp/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>https://eduardklap.github.io/neuroUp/reference/self_eval.html</loc>
-  </url>
-  <url>
-    <loc>https://eduardklap.github.io/neuroUp/reference/vicar_char.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://eduardklap.github.io/neuroUp/404.html</loc></url>
+<url><loc>https://eduardklap.github.io/neuroUp/LICENSE-text.html</loc></url>
+<url><loc>https://eduardklap.github.io/neuroUp/LICENSE.html</loc></url>
+<url><loc>https://eduardklap.github.io/neuroUp/articles/index.html</loc></url>
+<url><loc>https://eduardklap.github.io/neuroUp/articles/neuroUp.html</loc></url>
+<url><loc>https://eduardklap.github.io/neuroUp/authors.html</loc></url>
+<url><loc>https://eduardklap.github.io/neuroUp/index.html</loc></url>
+<url><loc>https://eduardklap.github.io/neuroUp/news/index.html</loc></url>
+<url><loc>https://eduardklap.github.io/neuroUp/reference/estim_corr.html</loc></url>
+<url><loc>https://eduardklap.github.io/neuroUp/reference/estim_diff.html</loc></url>
+<url><loc>https://eduardklap.github.io/neuroUp/reference/feedback.html</loc></url>
+<url><loc>https://eduardklap.github.io/neuroUp/reference/gambling.html</loc></url>
+<url><loc>https://eduardklap.github.io/neuroUp/reference/index.html</loc></url>
+<url><loc>https://eduardklap.github.io/neuroUp/reference/pipe.html</loc></url>
+<url><loc>https://eduardklap.github.io/neuroUp/reference/self_eval.html</loc></url>
+<url><loc>https://eduardklap.github.io/neuroUp/reference/vicar_char.html</loc></url>
 </urlset>
+

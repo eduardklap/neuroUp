@@ -1,10 +1,9 @@
 pandoc: 3.1.11
-pkgdown: 2.0.9
+pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   neuroUp: neuroUp.html
-last_built: 2024-06-08T19:42Z
+last_built: 2024-07-12T07:51Z
 urls:
   reference: https://eduardklap.github.io/neuroUp/reference
   article: https://eduardklap.github.io/neuroUp/articles
-
