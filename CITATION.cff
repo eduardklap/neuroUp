@@ -8,7 +8,7 @@ message: 'To cite package "neuroUp" in publications use:'
 type: software
 license: MIT
 title: 'neuroUp: Plan Sample Size for Task fMRI Research using Bayesian Updating'
-version: 0.3.0
+version: 0.3.1
 doi: 10.5281/zenodo.11526169
 abstract: Calculate the precision in mean differences (raw or Cohen's D) and correlation
   coefficients for different sample sizes. Uses permutations of the collected functional
