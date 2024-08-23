@@ -22,6 +22,7 @@ and interval width, for Pearson correlations for multiple sample sizes"><meta pr
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/eduardklap/neuroUp/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -30,7 +31,7 @@ and interval width, for Pearson correlations for multiple sample sizes"><meta pr
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Estimate correlations</h1>
-
+      <small class="dont-index">Source: <a href="https://github.com/eduardklap/neuroUp/blob/main/R/estim_corr.R" class="external-link"><code>R/estim_corr.R</code></a></small>
       <div class="d-none name"><code>estim_corr.Rd</code></div>
     </div>
 
@@ -74,7 +75,7 @@ figure. Defaults to <code>""</code></p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
 
-<ul><li><p><code>tbl_select</code> returns a <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> containing estimates of the Pearson’s
+<ul><li><p><code>tbl_select</code> returns a <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> containing estimates of the Pearson
 correlation between two correlated variables with associated SD, SE, 95% CI,
 and width of the 95% CI (lower, upper) for five different sample sizes
 (starting with the minimum sample size, then 1/5th parts of the total
@@ -85,7 +86,7 @@ average estimate with credible interval summarizing the total number of HDCIs
 for each sample size are plotted in orange</p></li>
 <li><p><code>fig_corr_nozero</code> returns a barplot where for each of the five sample sizes
 the proportion of permutations not containing zero is displayed</p></li>
-<li><p><code>tbl_total</code> returns a <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> containing estimates of the Pearson’s
+<li><p><code>tbl_total</code> returns a <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> containing estimates of the Pearson
 correlation between two correlated variables with associated SD, SE, 95% CI,
 and width of the 95% CI (lower, upper) for all sample sizes, including the
 permutation number.</p></li>

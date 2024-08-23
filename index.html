@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Plan Sample Size for fMRI Regions of Interest research using Bayesian updating • neuroUp</title>
+<title>Plan Sample Size for Task fMRI Research using Bayesian Updating • neuroUp</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Plan Sample Size for fMRI Regions of Interest research using Bayesian updating">
-<meta name="description" content="The package calculates the precision in mean differences (raw or Cohen's D) and correation coefficients for different sample sizes using permutations of the collected data.">
-<meta property="og:description" content="The package calculates the precision in mean differences (raw or Cohen's D) and correation coefficients for different sample sizes using permutations of the collected data.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Plan Sample Size for Task fMRI Research using Bayesian Updating">
+<meta name="description" content="Calculate the precision in mean differences (raw or Cohen's D) and correlation coefficients for different sample sizes. Uses permutations of the collected functional magnetic resonance imaging (fMRI) region of interest data. Method described in Klapwijk, Jongerling, Hoijtink and Crone (2024) &lt;doi:10.31234/osf.io/cz32t&gt;.">
+<meta property="og:description" content="Calculate the precision in mean differences (raw or Cohen's D) and correlation coefficients for different sample sizes. Uses permutations of the collected functional magnetic resonance imaging (fMRI) region of interest data. Method described in Klapwijk, Jongerling, Hoijtink and Crone (2024) &lt;doi:10.31234/osf.io/cz32t&gt;.">
 <meta property="og:image" content="https://eduardklap.github.io/neuroUp/logo.png">
 </head>
 <body>
@@ -40,6 +40,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/eduardklap/neuroUp/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -64,10 +65,16 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of neuroUp from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>Run the following in R:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"neuroUp"</span><span class="op">)</span></span></code></pre></div>
+<p>Or you can install the latest development version of neuroUp from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"eduardklap/neuroUp"</span><span class="op">)</span></span></code></pre></div>
+<p>Then run the following to get started:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://eduardklap.github.io/neuroUp/">neuroUp</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
@@ -76,7 +83,15 @@
 <p>Klapwijk, E., Hoijtink, H., &amp; Jongerling, J. (2024). neuroUp: Plan sample size for fMRI regions of interest research using Bayesian updating. <a href="https://doi.org/10.5281/zenodo.11526169" class="external-link uri">https://doi.org/10.5281/zenodo.11526169</a></p>
 </div>
 </div>
-  </main><aside class="col-md-3"><div class="license">
+  </main><aside class="col-md-3"><div class="links">
+<h2 data-toc-skip>Links</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/eduardklap/neuroUp/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/eduardklap/neuroUp/issues" class="external-link">Report a bug</a></li>
+</ul>
+</div>
+
+<div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
@@ -95,9 +110,9 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Eduard Klapwijk <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-8936-0365" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Herbert Hoijtink <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-8509-1973" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Joran Jongerling <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-5697-1381" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Eduard Klapwijk <br><small class="roles"> Author, maintainer, copyright holder </small> <a href="https://orcid.org/0000-0002-8936-0365" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Herbert Hoijtink <br><small class="roles"> Author, copyright holder </small> <a href="https://orcid.org/0000-0001-8509-1973" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Joran Jongerling <br><small class="roles"> Author, copyright holder </small> <a href="https://orcid.org/0000-0001-5697-1381" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
 
