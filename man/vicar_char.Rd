@@ -18,7 +18,7 @@ no-gain for self and charity (-6.44-2.97)}
 \source{
 {Spaans, J., Peters, S., Becht, A., van der Cruijsen, R., van de Groep, S.,
 & Crone, E. A. (2023). Longitudinal neural and behavioral trajectories of charity
-contributions across adolescence. Journal of Research on Adolescence, 33(2), 480–495.}
+contributions across adolescence. Journal of Research on Adolescence, 33(2), 480-495.}
 \doi{10.1111/jora.12820}
 }
 \usage{
@@ -27,7 +27,7 @@ vicar_char
 \description{
 A dataset containing the parameter estimates from
 the anatomical mask of the left nucleus accumbens (Harvard-Oxford subcortical atlas;
-thresholded at 40\%; center-of-mass coordinates x = −10, y = 12, z = −7; 28 voxels included),
+thresholded at 40\%; center-of-mass coordinates x = -10, y = 12, z = -7; 28 voxels included),
 with one value for the mean activation during gaining for self and one value for the mean
 activation during no-gain for self and charity for all participants.
 }

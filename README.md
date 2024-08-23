@@ -24,12 +24,24 @@ Bayesian updating. <https://doi.org/10.31234/osf.io/cz32t>
 
 ## Installation
 
-You can install the development version of neuroUp from
+Run the following in R:
+
+``` r
+install.packages("neuroUp")
+```
+
+Or you can install the latest development version of neuroUp from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
+install.packages("devtools")
 devtools::install_github("eduardklap/neuroUp")
+```
+
+Then run the following to get started:
+
+``` r
+library(neuroUp)
 ```
 
 ## Citation

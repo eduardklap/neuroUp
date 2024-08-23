@@ -22,7 +22,7 @@ figure. Defaults to \code{""}}
 }
 \value{
 \itemize{
-\item \code{tbl_select} returns a \code{\link[tibble:tibble]{tibble::tibble()}} containing estimates of the Pearson’s
+\item \code{tbl_select} returns a \code{\link[tibble:tibble]{tibble::tibble()}} containing estimates of the Pearson
 correlation between two correlated variables with associated SD, SE, 95\% CI,
 and width of the 95\% CI (lower, upper) for five different sample sizes
 (starting with the minimum sample size, then 1/5th parts of the total
@@ -33,7 +33,7 @@ average estimate with credible interval summarizing the total number of HDCIs
 for each sample size are plotted in orange
 \item \code{fig_corr_nozero} returns a barplot where for each of the five sample sizes
 the proportion of permutations not containing zero is displayed
-\item \code{tbl_total} returns a \code{\link[tibble:tibble]{tibble::tibble()}} containing estimates of the Pearson’s
+\item \code{tbl_total} returns a \code{\link[tibble:tibble]{tibble::tibble()}} containing estimates of the Pearson
 correlation between two correlated variables with associated SD, SE, 95\% CI,
 and width of the 95\% CI (lower, upper) for all sample sizes, including the
 permutation number.

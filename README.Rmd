@@ -29,11 +29,23 @@ Klapwijk, E. T., Jongerling, J., Hoijtink, H., & Crone, E. (2024, July 9). Sampl
 
 ## Installation
 
-You can install the development version of neuroUp from [GitHub](https://github.com/) with:
+Run the following in R:
+
+```r
+install.packages("neuroUp")
+```
+
+Or you can install the latest development version of neuroUp from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
+install.packages("devtools")
 devtools::install_github("eduardklap/neuroUp")
+```
+
+Then run the following to get started:
+
+```r
+library(neuroUp)
 ```
 
 ## Citation

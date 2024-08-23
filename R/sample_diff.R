@@ -4,7 +4,7 @@
 #' @param vars_of_interest Vector containing the names of the variables to be
 #'   compared on their means
 #' @param sample_size The range of sample size to be used
-#' @return list with estimate, variance, stdev, sterror, lower, upper values for
+#' @returns list with estimate, variance, stdev, sterror, lower, upper values for
 #'   unstandardized differences as well as Cohen's d for given sample_size
 #' @noRd
 

@@ -26,7 +26,7 @@ self_eval
 }
 \description{
 A dataset containing the parameter estimates of the
-left medial prefrontal cortex (x = −6, y = 50, z = 4),
+left medial prefrontal cortex (x = -6, y = 50, z = 4),
 with one value for the mean activation during self-evaluation
 and one value for the mean activation during the control condition for all participants.
 }

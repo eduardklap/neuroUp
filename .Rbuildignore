@@ -10,3 +10,4 @@
 ^doc$
 ^Meta$
 ^CITATION\.cff$
+^cran-comments\.md$

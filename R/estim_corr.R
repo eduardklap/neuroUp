@@ -12,7 +12,7 @@
 #' @param name The title of the dataset or variables to be displayed with the
 #'   figure. Defaults to `""`
 #' @returns
-#' * `tbl_select` returns a [tibble::tibble()] containing estimates of the Pearson’s
+#' * `tbl_select` returns a [tibble::tibble()] containing estimates of the Pearson
 #' correlation between two correlated variables with associated SD, SE, 95% CI,
 #' and width of the 95% CI (lower, upper) for five different sample sizes
 #' (starting with the minimum sample size, then 1/5th parts of the total
@@ -23,7 +23,7 @@
 #' for each sample size are plotted in orange
 #' * `fig_corr_nozero` returns a barplot where for each of the five sample sizes
 #' the proportion of permutations not containing zero is displayed
-#' * `tbl_total` returns a [tibble::tibble()] containing estimates of the Pearson’s
+#' * `tbl_total` returns a [tibble::tibble()] containing estimates of the Pearson
 #' correlation between two correlated variables with associated SD, SE, 95% CI,
 #' and width of the 95% CI (lower, upper) for all sample sizes, including the
 #' permutation number.

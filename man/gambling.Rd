@@ -18,7 +18,7 @@ the contrast winning versus losing (-2.60-4.47)}
 }
 }
 \source{
-{Schreuders, E., Braams, B. R., Blankenstein, N. E., Peper, J. S., Güroğlu, B., &
+{Schreuders, E., Braams, B. R., Blankenstein, N. E., Peper, J. S., Guroglu, B., &
 Crone, E. A. (2018). Contributions of reward sensitivity to ventral striatum activity across
 adolescence and early adulthood. Child development, 89(3), 797-810.}
 \doi{10.1111/cdev.13056}

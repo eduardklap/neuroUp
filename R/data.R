@@ -39,7 +39,7 @@
 #'   \item{lnacc_self_winvsloss}{parameter estimates for the left nucleas accumbens for
 #'   the contrast winning versus losing (-2.60-4.47)}
 #' }
-#' @source {Schreuders, E., Braams, B. R., Blankenstein, N. E., Peper, J. S., Güroğlu, B., & 
+#' @source {Schreuders, E., Braams, B. R., Blankenstein, N. E., Peper, J. S., Guroglu, B., & 
 #'  Crone, E. A. (2018). Contributions of reward sensitivity to ventral striatum activity across 
 #'  adolescence and early adulthood. Child development, 89(3), 797-810.}
 #'  \doi{10.1111/cdev.13056}
@@ -48,7 +48,7 @@
 #' Self-evaluations task fMRI region of interest data
 #'
 #' A dataset containing the parameter estimates of the
-#'  left medial prefrontal cortex (x = −6, y = 50, z = 4),
+#'  left medial prefrontal cortex (x = -6, y = 50, z = 4),
 #'  with one value for the mean activation during self-evaluation 
 #'  and one value for the mean activation during the control condition for all participants.
 #'
@@ -71,7 +71,7 @@
 #'
 #' A dataset containing the parameter estimates from
 #'  the anatomical mask of the left nucleus accumbens (Harvard-Oxford subcortical atlas; 
-#'  thresholded at 40%; center-of-mass coordinates x = −10, y = 12, z = −7; 28 voxels included),
+#'  thresholded at 40%; center-of-mass coordinates x = -10, y = 12, z = -7; 28 voxels included),
 #'  with one value for the mean activation during gaining for self and one value for the mean 
 #'  activation during no-gain for self and charity for all participants.
 #'
@@ -86,6 +86,6 @@
 #' }
 #' @source {Spaans, J., Peters, S., Becht, A., van der Cruijsen, R., van de Groep, S., 
 #'  & Crone, E. A. (2023). Longitudinal neural and behavioral trajectories of charity 
-#'  contributions across adolescence. Journal of Research on Adolescence, 33(2), 480–495.}
+#'  contributions across adolescence. Journal of Research on Adolescence, 33(2), 480-495.}
 #'  \doi{10.1111/jora.12820}
 "vicar_char"

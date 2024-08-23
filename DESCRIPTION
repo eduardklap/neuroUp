@@ -1,22 +1,26 @@
 Package: neuroUp
 Type: Package
-Title: Plan Sample Size for fMRI Regions of Interest research using Bayesian updating
+Title: Plan Sample Size for Task fMRI Research using Bayesian Updating
 Version: 0.2.0
 Authors@R: c(person(  "Eduard", "Klapwijk",
                 email = "et.klapwijk@gmail.com",
-                role = c("aut", "cre"),
+                role = c("aut", "cre", "cph"),
                 comment = c(ORCID = "0000-0002-8936-0365")), 
           person( "Herbert", "Hoijtink", 
-                role = c("aut"),
+                role = c("aut", "cph"),
                 comment = c(ORCID = "0000-0001-8509-1973")),
           person( "Joran", "Jongerling", 
-                role = c("aut"),
+                role = c("aut", "cph"),
                 comment = c(ORCID = "0000-0001-5697-1381")))
-Description: The package calculates the precision in mean differences (raw or Cohen's D) and correation coefficients for different sample sizes using permutations of the collected data.
+Description: Calculate the precision in mean differences (raw or Cohen's D) and 
+    correlation coefficients for different sample sizes. Uses permutations of the
+    collected functional magnetic resonance imaging (fMRI) region of interest data.
+    Method described in Klapwijk, Jongerling, Hoijtink and Crone (2024) 
+    <doi:10.31234/osf.io/cz32t>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 NeedsCompilation: no
 Imports: 
     dplyr,
@@ -37,4 +41,5 @@ Depends:
     R (>= 2.10)
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
-URL: https://eduardklap.github.io/neuroUp/
+URL: https://eduardklap.github.io/neuroUp/, https://github.com/eduardklap/neuroUp
+BugReports: https://github.com/eduardklap/neuroUp/issues
