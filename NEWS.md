@@ -1,3 +1,5 @@
+# neuroUp 0.3.1
+
 # neuroUp 0.3.0
 
 * Preprint published and added to readme (https://doi.org/10.31234/osf.io/cz32t)
