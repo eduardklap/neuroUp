@@ -7,13 +7,13 @@ cff-version: 1.2.0
 message: 'To cite package "neuroUp" in publications use:'
 type: software
 license: MIT
-title: 'neuroUp: Plan Sample Size for fMRI Regions of Interest research using Bayesian
-  updating'
+title: 'neuroUp: Plan Sample Size for Task fMRI Research using Bayesian Updating'
 version: 0.2.0
 doi: 10.5281/zenodo.11526169
-abstract: The package calculates the precision in mean differences (raw or Cohen's
-  D) and correation coefficients for different sample sizes using permutations of
-  the collected data.
+abstract: Calculate the precision in mean differences (raw or Cohen's D) and correlation
+  coefficients for different sample sizes. Uses permutations of the collected functional
+  magnetic resonance imaging (fMRI) region of interest data. Method described in Klapwijk,
+  Jongerling, Hoijtink and Crone (2024) <https://doi.org/10.31234/osf.io/cz32t>.
 authors:
 - family-names: Klapwijk
   given-names: Eduard
@@ -42,6 +42,7 @@ preferred-citation:
     orcid: https://orcid.org/0000-0001-5697-1381
   year: '2024'
   doi: 10.5281/zenodo.11526169
+repository-code: https://github.com/eduardklap/neuroUp
 url: https://eduardklap.github.io/neuroUp/
 contact:
 - family-names: Klapwijk
@@ -73,6 +74,7 @@ references:
     email: davis@posit.co
     orcid: https://orcid.org/0000-0003-4777-038X
   year: '2024'
+  doi: 10.32614/CRAN.package.dplyr
 - type: software
   title: rlang
   abstract: 'rlang: Functions for Base Types and Core R and ''Tidyverse'' Features'
@@ -87,6 +89,7 @@ references:
     given-names: Hadley
     email: hadley@posit.co
   year: '2024'
+  doi: 10.32614/CRAN.package.rlang
 - type: software
   title: ggplot2
   abstract: 'ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics'
@@ -126,6 +129,7 @@ references:
     name-particle: van den
     orcid: https://orcid.org/0000-0002-9335-7468
   year: '2024'
+  doi: 10.32614/CRAN.package.ggplot2
 - type: software
   title: psychometric
   abstract: 'psychometric: Applied Psychometric Theory'
@@ -135,6 +139,7 @@ references:
   - family-names: Fletcher
     given-names: Thomas D.
   year: '2024'
+  doi: 10.32614/CRAN.package.psychometric
 - type: software
   title: tibble
   abstract: 'tibble: Simple Data Frames'
@@ -150,6 +155,7 @@ references:
     given-names: Hadley
     email: hadley@rstudio.com
   year: '2024'
+  doi: 10.32614/CRAN.package.tibble
 - type: software
   title: magrittr
   abstract: 'magrittr: A Forward-Pipe Operator for R'
@@ -164,6 +170,7 @@ references:
     given-names: Hadley
     email: hadley@rstudio.com
   year: '2024'
+  doi: 10.32614/CRAN.package.magrittr
 - type: software
   title: bootstrap
   abstract: 'bootstrap: Functions for the Book "An Introduction to the Bootstrap"'
@@ -178,6 +185,7 @@ references:
   - family-names: Leisch.
     given-names: by Rob Tibshirani. R port by Friedrich
   year: '2024'
+  doi: 10.32614/CRAN.package.bootstrap
 - type: software
   title: knitr
   abstract: 'knitr: A General-Purpose Package for Dynamic Report Generation in R'
@@ -190,6 +198,7 @@ references:
     email: xie@yihui.name
     orcid: https://orcid.org/0000-0003-0645-5666
   year: '2024'
+  doi: 10.32614/CRAN.package.knitr
 - type: software
   title: readr
   abstract: 'readr: Read Rectangular Text Data'
@@ -207,6 +216,7 @@ references:
     email: jenny@posit.co
     orcid: https://orcid.org/0000-0002-6983-2759
   year: '2024'
+  doi: 10.32614/CRAN.package.readr
 - type: software
   title: rmarkdown
   abstract: 'rmarkdown: Dynamic Documents for R'
@@ -250,6 +260,7 @@ references:
     email: rich@posit.co
     orcid: https://orcid.org/0000-0003-3925-190X
   year: '2024'
+  doi: 10.32614/CRAN.package.rmarkdown
 - type: software
   title: testthat
   abstract: 'testthat: Unit Testing for R'
@@ -261,6 +272,7 @@ references:
     given-names: Hadley
     email: hadley@posit.co
   year: '2024'
+  doi: 10.32614/CRAN.package.testthat
   version: '>= 3.0.0'
 - type: software
   title: vdiffr
@@ -286,6 +298,7 @@ references:
     given-names: Vaudor
     email: lise.vaudor@ens-lyon.fr
   year: '2024'
+  doi: 10.32614/CRAN.package.vdiffr
 - type: software
   title: 'R: A Language and Environment for Statistical Computing'
   notes: Depends
