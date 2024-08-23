@@ -54,6 +54,6 @@ multiple sample sizes
 \examples{
 data_feedback <- feedback
 estim_diff(data_feedback,
-  c("mfg_learning", "mfg_application"), 20:271,
+  c("mfg_learning", "mfg_application"), 20:71,
   10, "Feedback middle frontal gyrus")
 }
