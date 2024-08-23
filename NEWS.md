@@ -1,3 +1,8 @@
+# neuroUp 0.3.0
+
+* Preprint published and added to readme (https://doi.org/10.31234/osf.io/cz32t)
+* Adapted description and documentation to comply with CRAN policy
+
 # neuroUp 0.2.0
 
 * Confidence intervals for Cohen's d are now calculated using bootstrapping (100 times per permutation)
