@@ -5,10 +5,12 @@
 
 <!-- badges: start -->
 
+[![CRAN
+status](https://www.r-pkg.org/badges/version/neuroUp)](https://CRAN.R-project.org/package=neuroUp)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11526169.svg)](https://doi.org/10.5281/zenodo.11526169)
 [![R-CMD-check](https://github.com/eduardklap/neuroUp/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/eduardklap/neuroUp/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/eduardklap/neuroUp/branch/main/graph/badge.svg)](https://app.codecov.io/gh/eduardklap/neuroUp?branch=main)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11526169.svg)](https://doi.org/10.5281/zenodo.11526169)
 <!-- badges: end -->
 
 ## Overview
