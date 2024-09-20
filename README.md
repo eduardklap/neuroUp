@@ -11,6 +11,8 @@ status](https://www.r-pkg.org/badges/version/neuroUp)](https://CRAN.R-project.or
 [![R-CMD-check](https://github.com/eduardklap/neuroUp/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/eduardklap/neuroUp/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/eduardklap/neuroUp/branch/main/graph/badge.svg)](https://app.codecov.io/gh/eduardklap/neuroUp?branch=main)
+[![FAIR checklist
+badge](https://fairsoftwarechecklist.net/badge.svg)](https://fairsoftwarechecklist.net/v0.2?f=31&a=32113&i=32220&r=133)
 <!-- badges: end -->
 
 ## Overview
