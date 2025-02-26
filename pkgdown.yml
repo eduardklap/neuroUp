@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   neuroUp: neuroUp.html
-last_built: 2025-02-26T08:53Z
+last_built: 2025-02-26T09:02Z
 urls:
   reference: https://eduardklap.github.io/neuroUp/reference
   article: https://eduardklap.github.io/neuroUp/articles
