@@ -19,12 +19,12 @@ badge](https://fairsoftwarechecklist.net/badge.svg)](https://fairsoftwarecheckli
 
 The goal of neuroUp is to perform empirical sample size determination
 and Bayesian updating for region of interest based task-related fMRI
-studies. For a more elaborate introduction to the method, see our
-preprint:
+studies. For a more elaborate introduction to the method, see our paper:
 
-Klapwijk, E. T., Jongerling, J., Hoijtink, H., & Crone, E. (2024, July
-9). Sample size estimation for task-related functional MRI studies using
-Bayesian updating. <https://doi.org/10.31234/osf.io/cz32t>
+Klapwijk, E. T., Jongerling, J., Hoijtink, H., & Crone, E. A. (2025).
+Sample size estimation for task-related functional MRI studies using
+Bayesian updating. *Developmental Cognitive Neuroscience, 71*, 101489.
+<https://doi.org/10.1016/j.dcn.2024.101489>
 
 ## Installation
 
